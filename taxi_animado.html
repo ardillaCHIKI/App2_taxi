@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>UNIETAXI - Mapa en Tiempo Real</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        .taxi-marker {
+            width: 35px;
+            height: 35px;
+            border: 3px solid black;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 29px;
+            font-size: 20px;
+        }
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            max-width: 320px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .controls h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .controls label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .controls input {
+            margin-right: 8px;
+        }
+        .btn {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: #229954;
+        }
+        .btn-reset {
+            background: #e74c3c;
+            margin-top: 5px;
+        }
+        .btn-reset:hover {
+            background: #c0392b;
+        }
+        .taxista-info {
+            font-size: 11px;
+            color: #666;
+            margin-left: 28px;
+            line-height: 1.4;
+        }
+        .header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        .stats {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            font-size: 12px;
+        }
+        .stats strong {
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div class="header">
+        <h2>🚖 UNIETAXI - Sistema en Tiempo Real</h2>
+        <p>Radio de búsqueda: 2.0 km | 5 taxis activos</p>
+    </div>
+    
+    <div class="stats" id="stats">
+        <strong>📊 Estadísticas:</strong><br>
+        Taxis activos: <span id="stat-activos">5</span><br>
+        Taxis en movimiento: <span id="stat-movimiento">0</span>
+    </div>
+    
+    <div class="controls">
+        <h3>🚕 Control de Taxis</h3>
+        <div id="taxi-controls"></div>
+        <button class="btn" onclick="iniciarAnimacion()">▶️ Iniciar Animación</button>
+        <button class="btn btn-reset" onclick="resetearAnimacion()">🔄 Reiniciar</button>
+    </div>
+    
+    <script>
+        // Datos de taxistas
+        var taxistasData = {"taxi1": {"nombre": "Carlos Ramirez", "placa": "1234ABC", "identificacion": "56781234C", "fecha_registro": "2025-11-17 10:56:27", "estado": "activo", "calificacion": 5.0, "servicios": 0}, "taxi2": {"nombre": "Lucia Fernandez", "placa": "7891XYZ", "identificacion": "78123456D", "fecha_registro": "2025-11-17 11:06:02", "estado": "activo", "calificacion": 5.0, "servicios": 0}, "taxi3": {"nombre": "Juan Perez", "placa": "2468LMN", "identificacion": "12345678E", "fecha_registro": "2025-11-21 09:35:44", "estado": "activo", "calificacion": 5.0, "servicios": 0}, "taxi4": {"nombre": "Miguel Torres", "placa": "9753RTY", "identificacion": "23456781F", "fecha_registro": "2025-11-21 09:36:27", "estado": "activo", "calificacion": 5.0, "servicios": 0}, "taxi5": {"nombre": "Maria Lopez", "placa": "5678XYZ", "identificacion": "78123456G", "fecha_registro": "2025-11-21 09:39:02", "estado": "activo", "calificacion": 5.0, "servicios": 0}};
+        
+        // Rutas de taxis
+        var rutasTaxis = [{"nombre": "Taxi 1 (Ópera)", "ruta": [[40.4178, -3.7094], [40.4177, -3.7085], [40.4168, -3.7047], [40.4168, -3.7034]], "color": "orange", "bg": "orange"}, {"nombre": "Taxi 2 (Plaza España)", "ruta": [[40.4234, -3.7109], [40.4203, -3.7059], [40.42, -3.7014], [40.4168, -3.7034]], "color": "purple", "bg": "purple"}, {"nombre": "Taxi 3 (Retiro)", "ruta": [[40.4153, -3.684], [40.417, -3.689], [40.4185, -3.695], [40.4168, -3.7034]], "color": "red", "bg": "red"}, {"nombre": "Taxi 4 (Embajadores)", "ruta": [[40.405, -3.7026], [40.4075, -3.6934], [40.4087, -3.692], [40.4152, -3.6943], [40.4193, -3.6936], [40.4178, -3.6995], [40.4168, -3.7034]], "color": "darkgreen", "bg": "green"}, {"nombre": "Taxi 5 (Argüelles)", "ruta": [[40.4306, -3.7162], [40.4263, -3.7132], [40.4235, -3.7148], [40.4219, -3.7132], [40.4203, -3.7154], [40.4203, -3.72], [40.4139, -3.7209], [40.4139, -3.7168], [40.411, -3.7183], [40.4087, -3.7167], [40.4065, -3.7114], [40.4086, -3.7131], [40.4106, -3.7139], [40.415, -3.7135], [40.4155, -3.7104], [40.4161, -3.7078], [40.4168, -3.7034]], "color": "gray", "bg": "gray"}];
+        
+        // Crear controles dinámicamente
+        var controlsDiv = document.getElementById('taxi-controls');
+        Object.keys(taxistasData).forEach(function(taxiId, index) {
+            var taxista = taxistasData[taxiId];
+            var ruta = rutasTaxis[index];
+            
+            var label = document.createElement('label');
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = taxiId;
+            checkbox.checked = true;
+            
+            var emoji = ['🟠', '🟣', '🔴', '🟢', '⚫', '🔵', '🌸', '🟤'][index];
+            var text = emoji + ' ' + ruta.nombre;
+            
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(text));
+            
+            var infoDiv = document.createElement('div');
+            infoDiv.className = 'taxista-info';
+            infoDiv.innerHTML = '👤 ' + taxista.nombre + '<br>🚗 ' + taxista.placa;
+            if (taxista.calificacion) {
+                infoDiv.innerHTML += '<br>⭐ ' + taxista.calificacion.toFixed(1);
+            }
+            label.appendChild(infoDiv);
+            
+            controlsDiv.appendChild(label);
+        });
+        
+        // Crear mapa
+        var map = L.map('map').setView([40.4168, -3.7034], 14);
+        
+        // Añadir capa de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap | UNIETAXI Sistema v2.0.0'
+        }).addTo(map);
+        
+        // Ruta principal (azul)
+        var rutaPrincipal = [[40.4168, -3.7034], [40.4193, -3.6931], [40.42, -3.6887], [40.4216, -3.68], [40.4142, -3.6772], [40.4113, -3.6763], [40.4075, -3.6789], [40.4044, -3.6807]];
+        L.polyline(rutaPrincipal, {color: 'blue', weight: 5, opacity: 0.8}).addTo(map);
+        
+        // Marcadores de ruta principal
+        L.marker([40.4168, -3.7034]).addTo(map)
+            .bindPopup('<b>Puerta del Sol</b><br>Punto de encuentro');
+        
+        // Círculo de radio de búsqueda
+        L.circle([40.4168, -3.7034], {
+            radius: 2000.0,
+            color: 'white',
+            fillColor: 'white',
+            fillOpacity: 0.1
+        }).addTo(map).bindPopup('Radio de búsqueda: 2.0 km');
+        
+        // Dibujar las rutas de los taxis
+        rutasTaxis.forEach(function(taxi, index) {
+            L.polyline(taxi.ruta, {
+                color: taxi.color,
+                weight: 4,
+                opacity: 0.6,
+                dashArray: '5, 5'
+            }).addTo(map);
+            
+            // Marcador de inicio
+            var taxista = taxistasData['taxi' + (index + 1)];
+            var popupText = taxi.nombre + ' - Partida';
+            if (taxista) {
+                popupText += '<br><b>Taxista:</b> ' + taxista.nombre;
+                popupText += '<br><b>Placa:</b> ' + taxista.placa;
+            }
+            L.marker(taxi.ruta[0]).addTo(map).bindPopup(popupText);
+        });
+        
+        // Variables globales para animación
+        var taxiMarkers = [];
+        var taxiStates = [];
+        var animationRunning = false;
+        
+        // Inicializar marcadores
+        rutasTaxis.forEach(function(taxi, i) {
+            var icon = L.divIcon({
+                className: 'taxi-marker',
+                html: '<div style="background: ' + taxi.bg + '; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center;">🚕</div>',
+                iconSize: [35, 35]
+            });
+            
+            var marker = L.marker(taxi.ruta[0], {icon: icon}).addTo(map);
+            
+            // Popup con información del taxista
+            var taxista = taxistasData['taxi' + (i + 1)];
+            var popupContent = '<b>' + taxi.nombre + '</b>';
+            if (taxista) {
+                popupContent += '<br>👤 ' + taxista.nombre;
+                popupContent += '<br>🚗 ' + taxista.placa;
+                if (taxista.calificacion) {
+                    popupContent += '<br>⭐ ' + taxista.calificacion.toFixed(1);
+                }
+                if (taxista.servicios) {
+                    popupContent += '<br>📊 ' + taxista.servicios + ' servicios';
+                }
+            }
+            marker.bindPopup(popupContent);
+            
+            taxiMarkers.push(marker);
+            taxiStates.push({
+                id: 'taxi' + (i + 1),
+                index: 0,
+                step: 0,
+                totalSteps: 50,
+                ruta: taxi.ruta,
+                nombre: taxi.nombre,
+                finished: false,
+                activo: true
+            });
+        });
+        
+        // Función para iniciar la animación
+        function iniciarAnimacion() {
+            // Leer qué taxis están seleccionados
+            taxiStates.forEach(function(state) {
+                var checkbox = document.getElementById(state.id);
+                state.activo = checkbox.checked;
+            });
+            
+            if (!animationRunning) {
+                animationRunning = true;
+                animateAllTaxis();
+            }
+        }
+        
+        // Función para resetear
+        function resetearAnimacion() {
+            animationRunning = false;
+            taxiStates.forEach(function(state, i) {
+                state.finished = false;
+                state.index = 0;
+                state.step = 0;
+                taxiMarkers[i].setLatLng(state.ruta[0]);
+            });
+            actualizarEstadisticas();
+        }
+        
+        // Función de animación para todos los taxis
+        function animateAllTaxis() {
+            var allFinished = true;
+            var enMovimiento = 0;
+            
+            taxiStates.forEach(function(state, i) {
+                if (!state.activo) return;
+                
+                if (!state.finished && state.index < state.ruta.length - 1) {
+                    allFinished = false;
+                    enMovimiento++;
+                    state.step++;
+                    
+                    if (state.step > state.totalSteps) {
+                        state.step = 0;
+                        state.index++;
+                    }
+                    
+                    if (state.index < state.ruta.length - 1) {
+                        var lat1 = state.ruta[state.index][0];
+                        var lng1 = state.ruta[state.index][1];
+                        var lat2 = state.ruta[state.index + 1][0];
+                        var lng2 = state.ruta[state.index + 1][1];
+                        
+                        var fraction = state.step / state.totalSteps;
+                        var currentLat = lat1 + (lat2 - lat1) * fraction;
+                        var currentLng = lng1 + (lng2 - lng1) * fraction;
+                        
+                        taxiMarkers[i].setLatLng([currentLat, currentLng]);
+                    }
+                } else if (!state.finished) {
+                    // Taxi llegó a Sol
+                    state.finished = true;
+                    var taxista = taxistasData[state.id];
+                    var arrivedMsg = '✅ ' + state.nombre + ' - ¡Llegó a Puerta del Sol!';
+                    if (taxista) {
+                        arrivedMsg += '<br>Taxista: ' + taxista.nombre;
+                    }
+                    taxiMarkers[i].bindPopup(arrivedMsg).openPopup();
+                    setTimeout(function() { taxiMarkers[i].closePopup(); }, 3000);
+                }
+            });
+            
+            // Actualizar estadísticas
+            document.getElementById('stat-movimiento').textContent = enMovimiento;
+            
+            if (!allFinished) {
+                setTimeout(animateAllTaxis, 30);
+            } else {
+                animationRunning = false;
+                console.log('Todos los taxis activos llegaron a Puerta del Sol');
+            }
+        }
+        
+        function actualizarEstadisticas() {
+            var activos = taxiStates.filter(s => s.activo).length;
+            document.getElementById('stat-activos').textContent = activos;
+        }
+    </script>
+</body>
+</html>
