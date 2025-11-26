@@ -1,0 +1,72 @@
+[
+    {
+        "nombre": "Carlos Ramirez",
+        "identificacion": "56781234C",
+        "licencia": "Si",
+        "antecedentes": "Si",
+        "certificado_medico": "Si",
+        "infracciones": "Si",
+        "placa": "1234ABC",
+        "seguro": "Si",
+        "impuestos": "Si",
+        "placa_estado": "Bueno",
+        "fecha_registro": "2025-11-17 10:56:27",
+        "estado": "activo"
+    },
+    {
+        "nombre": "Lucia Fernandez",
+        "identificacion": "78123456D",
+        "licencia": "Vigente",
+        "antecedentes": "Vigente",
+        "certificado_medico": "Si",
+        "infracciones": "Si",
+        "placa": "7891XYZ",
+        "seguro": "Vigente",
+        "impuestos": "Si",
+        "placa_estado": "Bueno",
+        "fecha_registro": "2025-11-17 11:06:02",
+        "estado": "activo"
+    },
+    {
+        "nombre": "Juan Perez",
+        "identificacion": "12345678E",
+        "licencia": "Si",
+        "antecedentes": "Si",
+        "certificado_medico": "Si",
+        "infracciones": "Si",
+        "placa": "2468LMN",
+        "seguro": "Si",
+        "impuestos": "Si",
+        "placa_estado": "Si",
+        "fecha_registro": "2025-11-21 09:35:44",
+        "estado": "activo"
+    },
+    {
+        "nombre": "Miguel Torres",
+        "identificacion": "23456781F",
+        "licencia": "Si",
+        "antecedentes": "Si",
+        "certificado_medico": "Si",
+        "infracciones": "Si",
+        "placa": "9753RTY",
+        "seguro": "Si",
+        "impuestos": "Si",
+        "placa_estado": "Si",
+        "fecha_registro": "2025-11-21 09:36:27",
+        "estado": "activo"
+    },
+    {
+        "nombre": "Maria Lopez",
+        "identificacion": "78123456G",
+        "licencia": "Si",
+        "antecedentes": "Si",
+        "certificado_medico": "Si",
+        "infracciones": "Si",
+        "placa": "5678XYZ",
+        "seguro": "Si",
+        "impuestos": "Si",
+        "placa_estado": "Si",
+        "fecha_registro": "2025-11-21 09:39:02",
+        "estado": "activo"
+    }
+]

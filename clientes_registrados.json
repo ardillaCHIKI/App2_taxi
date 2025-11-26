@@ -1,0 +1,18 @@
+[
+    {
+        "nombre": "Juan Pablo",
+        "identificacion": "12345678A",
+        "tarjeta": "1234567876543219",
+        "tarjeta_enmascarada": "**** **** **** 3219",
+        "fecha_registro": "2025-11-17 10:13:12",
+        "estado": "activo"
+    },
+    {
+        "nombre": "Maria Sanchez",
+        "identificacion": "87654321B",
+        "tarjeta": "8765432191234567",
+        "tarjeta_enmascarada": "**** **** **** 4567",
+        "fecha_registro": "2025-11-17 10:18:54",
+        "estado": "activo"
+    }
+]
