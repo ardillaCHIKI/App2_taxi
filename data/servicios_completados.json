@@ -4,91 +4,91 @@
     "id_taxi": 2,
     "id_cliente": 10001,
     "origen": [
-      40.40740862989067,
-      -3.656866936248387
+      40.4430008254456,
+      -3.7161513749576076
     ],
     "destino": [
-      40.44484060048759,
-      -3.7355003952490904
+      40.412437898483105,
+      -3.691167569348319
     ],
-    "distancia_km": 0.09,
-    "costo": 0.22,
-    "comision_empresa": 0.04,
-    "ganancia_taxista": 0.17,
-    "calificacion": 5,
+    "distancia_km": 0.04,
+    "costo": 0.1,
+    "comision_empresa": 0.02,
+    "ganancia_taxista": 0.08,
+    "calificacion": 4,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": true
   },
   {
     "id_servicio": 2,
-    "id_taxi": 1,
+    "id_taxi": 3,
     "id_cliente": 10002,
     "origen": [
-      40.407398222410045,
-      -3.6820369613321446
+      40.40943051520985,
+      -3.720622658396303
     ],
     "destino": [
-      40.40761043844391,
-      -3.7055646296948614
+      40.43792717823515,
+      -3.678800234013579
     ],
-    "distancia_km": 0.02,
-    "costo": 0.06,
-    "comision_empresa": 0.01,
-    "ganancia_taxista": 0.05,
+    "distancia_km": 0.05,
+    "costo": 0.13,
+    "comision_empresa": 0.03,
+    "ganancia_taxista": 0.1,
     "calificacion": 5,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": true
   },
   {
     "id_servicio": 3,
-    "id_taxi": 3,
+    "id_taxi": 5,
     "id_cliente": 10003,
     "origen": [
-      40.43672830307982,
-      -3.6936573801354093
+      40.3981608245738,
+      -3.6930845971771475
     ],
     "destino": [
-      40.43681967363774,
-      -3.7006573834260417
+      40.43042291961921,
+      -3.6882878152951304
     ],
-    "distancia_km": 0.01,
-    "costo": 0.02,
-    "comision_empresa": 0.0,
-    "ganancia_taxista": 0.01,
-    "calificacion": 5,
+    "distancia_km": 0.03,
+    "costo": 0.08,
+    "comision_empresa": 0.02,
+    "ganancia_taxista": 0.07,
+    "calificacion": 4,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": true
   },
   {
     "id_servicio": 4,
-    "id_taxi": 3,
+    "id_taxi": 5,
     "id_cliente": 10004,
     "origen": [
-      40.437670379331294,
-      -3.6911569074597033
+      40.449984884139575,
+      -3.696172975699356
     ],
     "destino": [
-      40.41056827034837,
-      -3.6860010493935134
+      40.42321561200559,
+      -3.7454264428267976
     ],
-    "distancia_km": 0.03,
-    "costo": 0.07,
-    "comision_empresa": 0.01,
-    "ganancia_taxista": 0.06,
+    "distancia_km": 0.06,
+    "costo": 0.14,
+    "comision_empresa": 0.03,
+    "ganancia_taxista": 0.11,
     "calificacion": 3,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": true
   },
   {
@@ -96,127 +96,242 @@
     "id_taxi": 3,
     "id_cliente": 10005,
     "origen": [
-      40.414034622101674,
-      -3.652641805611911
+      40.430348585211554,
+      -3.6737115299384704
     ],
     "destino": [
-      40.443548012388945,
-      -3.723745917944464
+      40.419858508175594,
+      -3.6626400241757886
     ],
-    "distancia_km": 0.08,
-    "costo": 0.19,
-    "comision_empresa": 0.04,
-    "ganancia_taxista": 0.15,
+    "distancia_km": 0.02,
+    "costo": 0.04,
+    "comision_empresa": 0.01,
+    "ganancia_taxista": 0.03,
     "calificacion": 3,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": true
   },
   {
     "id_servicio": 6,
-    "id_taxi": 1,
+    "id_taxi": 5,
     "id_cliente": 10006,
     "origen": [
-      40.39638249636065,
-      -3.73709681953727
+      40.39964614749291,
+      -3.72258020873149
     ],
     "destino": [
-      40.41596782553984,
-      -3.683966051989154
+      40.422279595923214,
+      -3.7304836378758006
     ],
-    "distancia_km": 0.06,
-    "costo": 0.14,
-    "comision_empresa": 0.03,
-    "ganancia_taxista": 0.11,
-    "calificacion": 4,
+    "distancia_km": 0.02,
+    "costo": 0.06,
+    "comision_empresa": 0.01,
+    "ganancia_taxista": 0.05,
+    "calificacion": 3,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": false
   },
   {
     "id_servicio": 7,
     "id_taxi": 5,
-    "id_cliente": 10004,
+    "id_cliente": 10007,
     "origen": [
-      40.409208837339264,
-      -3.7258314465952975
+      40.42226461777022,
+      -3.718618849563642
     ],
     "destino": [
-      40.433247130224906,
-      -3.708290100714747
+      40.41721877332873,
+      -3.7203191852514133
     ],
-    "distancia_km": 0.03,
-    "costo": 0.07,
-    "comision_empresa": 0.01,
-    "ganancia_taxista": 0.06,
+    "distancia_km": 0.01,
+    "costo": 0.01,
+    "comision_empresa": 0.0,
+    "ganancia_taxista": 0.01,
     "calificacion": 4,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": false
   },
   {
     "id_servicio": 8,
-    "id_taxi": 1,
-    "id_cliente": 10003,
+    "id_taxi": 5,
+    "id_cliente": 10008,
     "origen": [
-      40.402833892350706,
-      -3.6506466051654383
+      40.39228943355599,
+      -3.736304734912151
     ],
     "destino": [
-      40.40278363071072,
-      -3.6532566852235773
+      40.396916916043054,
+      -3.7454444998756777
     ],
-    "distancia_km": 0.0,
-    "costo": 0.01,
-    "comision_empresa": 0.0,
-    "ganancia_taxista": 0.01,
-    "calificacion": 5,
+    "distancia_km": 0.01,
+    "costo": 0.03,
+    "comision_empresa": 0.01,
+    "ganancia_taxista": 0.02,
+    "calificacion": 3,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": false
   },
   {
     "id_servicio": 9,
-    "id_taxi": 1,
+    "id_taxi": 2,
     "id_cliente": 10007,
     "origen": [
-      40.39641504972756,
-      -3.6575680351981945
+      40.4043729561931,
+      -3.6764833513637356
     ],
     "destino": [
-      40.4319920884939,
-      -3.6866139763031303
+      40.40716726198652,
+      -3.7227516495157564
     ],
     "distancia_km": 0.05,
-    "costo": 0.11,
+    "costo": 0.12,
     "comision_empresa": 0.02,
     "ganancia_taxista": 0.09,
     "calificacion": 4,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": false
   },
   {
     "id_servicio": 10,
-    "id_taxi": 4,
-    "id_cliente": 10008,
+    "id_taxi": 5,
+    "id_cliente": 10004,
     "origen": [
-      40.398859847248055,
-      -3.7230288749724445
+      40.395189690684425,
+      -3.739504781988801
     ],
     "destino": [
-      40.44010754083763,
-      -3.6591892385985103
+      40.41095104426512,
+      -3.6752295025867356
+    ],
+    "distancia_km": 0.07,
+    "costo": 0.17,
+    "comision_empresa": 0.03,
+    "ganancia_taxista": 0.13,
+    "calificacion": 4,
+    "dia": 1,
+    "completado": true,
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
+    "en_seguimiento": false
+  },
+  {
+    "id_servicio": 11,
+    "id_taxi": 1,
+    "id_cliente": 10005,
+    "origen": [
+      40.434932632335695,
+      -3.690267048093008
+    ],
+    "destino": [
+      40.441377313525706,
+      -3.729363498687955
+    ],
+    "distancia_km": 0.04,
+    "costo": 0.1,
+    "comision_empresa": 0.02,
+    "ganancia_taxista": 0.08,
+    "calificacion": 4,
+    "dia": 1,
+    "completado": true,
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
+    "en_seguimiento": false
+  },
+  {
+    "id_servicio": 12,
+    "id_taxi": 2,
+    "id_cliente": 10006,
+    "origen": [
+      40.39272867691181,
+      -3.745130005792561
+    ],
+    "destino": [
+      40.40385370445359,
+      -3.673745486929107
+    ],
+    "distancia_km": 0.07,
+    "costo": 0.18,
+    "comision_empresa": 0.04,
+    "ganancia_taxista": 0.14,
+    "calificacion": 5,
+    "dia": 1,
+    "completado": true,
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
+    "en_seguimiento": false
+  },
+  {
+    "id_servicio": 13,
+    "id_taxi": 4,
+    "id_cliente": 10004,
+    "origen": [
+      40.438223814014755,
+      -3.681110667445756
+    ],
+    "destino": [
+      40.39585685778169,
+      -3.6738897075218877
+    ],
+    "distancia_km": 0.04,
+    "costo": 0.11,
+    "comision_empresa": 0.02,
+    "ganancia_taxista": 0.09,
+    "calificacion": 3,
+    "dia": 1,
+    "completado": true,
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
+    "en_seguimiento": false
+  },
+  {
+    "id_servicio": 14,
+    "id_taxi": 5,
+    "id_cliente": 10008,
+    "origen": [
+      40.43216724803421,
+      -3.6828151449397546
+    ],
+    "destino": [
+      40.39367969739495,
+      -3.7098961518853857
+    ],
+    "distancia_km": 0.05,
+    "costo": 0.12,
+    "comision_empresa": 0.02,
+    "ganancia_taxista": 0.09,
+    "calificacion": 5,
+    "dia": 1,
+    "completado": true,
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
+    "en_seguimiento": false
+  },
+  {
+    "id_servicio": 15,
+    "id_taxi": 4,
+    "id_cliente": 10007,
+    "origen": [
+      40.39819543228409,
+      -3.66457307678762
+    ],
+    "destino": [
+      40.4455461047976,
+      -3.7252017334806897
     ],
     "distancia_km": 0.08,
     "costo": 0.19,
@@ -225,146 +340,31 @@
     "calificacion": 3,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
-    "en_seguimiento": false
-  },
-  {
-    "id_servicio": 11,
-    "id_taxi": 1,
-    "id_cliente": 10001,
-    "origen": [
-      40.441059962950696,
-      -3.6687806009635513
-    ],
-    "destino": [
-      40.40850342390686,
-      -3.734274082799934
-    ],
-    "distancia_km": 0.07,
-    "costo": 0.18,
-    "comision_empresa": 0.04,
-    "ganancia_taxista": 0.15,
-    "calificacion": 4,
-    "dia": 1,
-    "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
-    "en_seguimiento": false
-  },
-  {
-    "id_servicio": 12,
-    "id_taxi": 1,
-    "id_cliente": 10004,
-    "origen": [
-      40.4108981786283,
-      -3.746118938910823
-    ],
-    "destino": [
-      40.44538048050394,
-      -3.6729000775160956
-    ],
-    "distancia_km": 0.08,
-    "costo": 0.2,
-    "comision_empresa": 0.04,
-    "ganancia_taxista": 0.16,
-    "calificacion": 4,
-    "dia": 1,
-    "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
-    "en_seguimiento": false
-  },
-  {
-    "id_servicio": 13,
-    "id_taxi": 2,
-    "id_cliente": 10005,
-    "origen": [
-      40.44453945160356,
-      -3.7380529500465154
-    ],
-    "destino": [
-      40.411545479209224,
-      -3.7256514911881324
-    ],
-    "distancia_km": 0.04,
-    "costo": 0.09,
-    "comision_empresa": 0.02,
-    "ganancia_taxista": 0.07,
-    "calificacion": 5,
-    "dia": 1,
-    "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
-    "en_seguimiento": false
-  },
-  {
-    "id_servicio": 14,
-    "id_taxi": 3,
-    "id_cliente": 10002,
-    "origen": [
-      40.43548820341558,
-      -3.722609845671593
-    ],
-    "destino": [
-      40.438812328548025,
-      -3.7181451388631053
-    ],
-    "distancia_km": 0.01,
-    "costo": 0.01,
-    "comision_empresa": 0.0,
-    "ganancia_taxista": 0.01,
-    "calificacion": 5,
-    "dia": 1,
-    "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
-    "en_seguimiento": false
-  },
-  {
-    "id_servicio": 15,
-    "id_taxi": 4,
-    "id_cliente": 10003,
-    "origen": [
-      40.40220929455259,
-      -3.6705559441828197
-    ],
-    "destino": [
-      40.44404336283286,
-      -3.744080859523617
-    ],
-    "distancia_km": 0.08,
-    "costo": 0.21,
-    "comision_empresa": 0.04,
-    "ganancia_taxista": 0.17,
-    "calificacion": 5,
-    "dia": 1,
-    "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:16",
+    "fecha_completa": "2025-11-26 10:16:16",
     "en_seguimiento": false
   },
   {
     "id_servicio": 16,
-    "id_taxi": 5,
-    "id_cliente": 10001,
+    "id_taxi": 3,
+    "id_cliente": 10008,
     "origen": [
-      40.42315693733684,
-      -3.6969918348643556
+      40.43568775068546,
+      -3.681548095932996
     ],
     "destino": [
-      40.391409606797055,
-      -3.691965676293357
+      40.40386101408438,
+      -3.673740284533309
     ],
     "distancia_km": 0.03,
     "costo": 0.08,
     "comision_empresa": 0.02,
-    "ganancia_taxista": 0.06,
-    "calificacion": 3,
+    "ganancia_taxista": 0.07,
+    "calificacion": 4,
     "dia": 1,
     "completado": true,
-    "timestamp": "10:09:36",
-    "fecha_completa": "2025-11-26 10:09:36",
+    "timestamp": "10:16:17",
+    "fecha_completa": "2025-11-26 10:16:17",
     "en_seguimiento": false
   }
 ]

@@ -11,18 +11,18 @@
       "modelo": "Corolla",
       "velocidad": 60,
       "ubicacion": [
-        40.44538048050394,
-        -3.6729000775160956
+        40.441377313525706,
+        -3.729363498687955
       ],
       "disponible": true,
-      "calificacion_promedio": 5.17,
-      "cantidad_servicios": 6,
+      "calificacion_promedio": 9.0,
+      "cantidad_servicios": 1,
       "ganancia_diaria": 0.0,
-      "ganancia_total": 0.71,
-      "comision_empresa": 0.14,
-      "ganancia_neta": 0.57,
+      "ganancia_total": 0.1,
+      "comision_empresa": 0.02,
+      "ganancia_neta": 0.08,
       "cliente_actual": null,
-      "fecha_registro": "2025-11-26 10:09:27",
+      "fecha_registro": "2025-11-26 10:16:03",
       "estado": "activo",
       "color_mapa": "orange"
     },
@@ -37,18 +37,18 @@
       "modelo": "Civic",
       "velocidad": 55,
       "ubicacion": [
-        40.411545479209224,
-        -3.7256514911881324
+        40.40385370445359,
+        -3.673745486929107
       ],
       "disponible": true,
-      "calificacion_promedio": 7.5,
-      "cantidad_servicios": 2,
+      "calificacion_promedio": 6.0,
+      "cantidad_servicios": 3,
       "ganancia_diaria": 0.0,
-      "ganancia_total": 0.31,
-      "comision_empresa": 0.06,
-      "ganancia_neta": 0.24,
+      "ganancia_total": 0.4,
+      "comision_empresa": 0.08,
+      "ganancia_neta": 0.32,
       "cliente_actual": null,
-      "fecha_registro": "2025-11-26 10:09:27",
+      "fecha_registro": "2025-11-26 10:16:03",
       "estado": "activo",
       "color_mapa": "purple"
     },
@@ -63,18 +63,18 @@
       "modelo": "Sentra",
       "velocidad": 65,
       "ubicacion": [
-        40.438812328548025,
-        -3.7181451388631053
+        40.40386101408438,
+        -3.673740284533309
       ],
       "disponible": true,
-      "calificacion_promedio": 5.25,
-      "cantidad_servicios": 4,
+      "calificacion_promedio": 5.67,
+      "cantidad_servicios": 3,
       "ganancia_diaria": 0.0,
-      "ganancia_total": 0.29,
-      "comision_empresa": 0.06,
-      "ganancia_neta": 0.23,
+      "ganancia_total": 0.25,
+      "comision_empresa": 0.05,
+      "ganancia_neta": 0.2,
       "cliente_actual": null,
-      "fecha_registro": "2025-11-26 10:09:27",
+      "fecha_registro": "2025-11-26 10:16:03",
       "estado": "activo",
       "color_mapa": "red"
     },
@@ -89,18 +89,18 @@
       "modelo": "Cruze",
       "velocidad": 58,
       "ubicacion": [
-        40.44404336283286,
-        -3.744080859523617
+        40.4455461047976,
+        -3.7252017334806897
       ],
       "disponible": true,
-      "calificacion_promedio": 6.5,
+      "calificacion_promedio": 5.5,
       "cantidad_servicios": 2,
       "ganancia_diaria": 0.0,
-      "ganancia_total": 0.4,
-      "comision_empresa": 0.08,
-      "ganancia_neta": 0.32,
+      "ganancia_total": 0.3,
+      "comision_empresa": 0.06,
+      "ganancia_neta": 0.24,
       "cliente_actual": null,
-      "fecha_registro": "2025-11-26 10:09:27",
+      "fecha_registro": "2025-11-26 10:16:03",
       "estado": "activo",
       "color_mapa": "darkgreen"
     },
@@ -115,22 +115,22 @@
       "modelo": "Focus",
       "velocidad": 62,
       "ubicacion": [
-        40.391409606797055,
-        -3.691965676293357
+        40.39367969739495,
+        -3.7098961518853857
       ],
       "disponible": true,
-      "calificacion_promedio": 6.0,
-      "cantidad_servicios": 2,
+      "calificacion_promedio": 4.43,
+      "cantidad_servicios": 7,
       "ganancia_diaria": 0.0,
-      "ganancia_total": 0.15,
-      "comision_empresa": 0.03,
-      "ganancia_neta": 0.12,
+      "ganancia_total": 0.6,
+      "comision_empresa": 0.12,
+      "ganancia_neta": 0.48,
       "cliente_actual": null,
-      "fecha_registro": "2025-11-26 10:09:27",
+      "fecha_registro": "2025-11-26 10:16:03",
       "estado": "activo",
       "color_mapa": "gray"
     }
   ],
   "clientes": [],
-  "timestamp": "26 de November de 2025, 10:09:40"
+  "timestamp": "26 de November de 2025, 10:16:20"
 }
