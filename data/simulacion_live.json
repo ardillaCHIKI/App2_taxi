@@ -1,0 +1,162 @@
+{
+  "timestamp": "2025-11-28 09:51:47",
+  "dia_actual": 3,
+  "servicios_activos": 0,
+  "total_servicios": 0,
+  "ganancia_empresa": 0.0,
+  "eventos": [
+    {
+      "timestamp": "09:51:41",
+      "tipo": "sistema",
+      "mensaje": "🌅 Inicio del Día 1",
+      "datos": {
+        "dia": 1
+      }
+    },
+    {
+      "timestamp": "09:51:42",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Juan Pablo",
+      "datos": {
+        "cliente": 7590638
+      }
+    },
+    {
+      "timestamp": "09:51:42",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Maria Sanchez",
+      "datos": {
+        "cliente": 20388574
+      }
+    },
+    {
+      "timestamp": "09:51:42",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Juan Pablo",
+      "datos": {
+        "cliente": 7590638
+      }
+    },
+    {
+      "timestamp": "09:51:42",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Maria Sanchez",
+      "datos": {
+        "cliente": 20388574
+      }
+    },
+    {
+      "timestamp": "09:51:44",
+      "tipo": "sistema",
+      "mensaje": "🌙 Finalizando Día 1...",
+      "datos": {
+        "dia": 1
+      }
+    },
+    {
+      "timestamp": "09:51:44",
+      "tipo": "sistema",
+      "mensaje": "🌅 Inicio del Día 2",
+      "datos": {
+        "dia": 2
+      }
+    },
+    {
+      "timestamp": "09:51:47",
+      "tipo": "sistema",
+      "mensaje": "🌙 Finalizando Día 2...",
+      "datos": {
+        "dia": 2
+      }
+    },
+    {
+      "timestamp": "09:51:47",
+      "tipo": "sistema",
+      "mensaje": "🏁 Simulación finalizada",
+      "datos": {}
+    }
+  ],
+  "taxis": [
+    {
+      "id": 1,
+      "placa": "1234ABC",
+      "nombre": "Carlos Ramirez",
+      "ubicacion": [
+        40.425,
+        -3.685
+      ],
+      "disponible": true,
+      "cliente_actual": null,
+      "calificacion": 5.0,
+      "servicios": 0,
+      "ganancia": 0.0,
+      "color": "orange"
+    },
+    {
+      "id": 2,
+      "placa": "7891XYZ",
+      "nombre": "Lucia Fernandez",
+      "ubicacion": [
+        40.4306,
+        -3.7162
+      ],
+      "disponible": true,
+      "cliente_actual": null,
+      "calificacion": 5.0,
+      "servicios": 0,
+      "ganancia": 0.0,
+      "color": "purple"
+    },
+    {
+      "id": 3,
+      "placa": "2468LMN",
+      "nombre": "Juan Perez",
+      "ubicacion": [
+        40.4234,
+        -3.7109
+      ],
+      "disponible": true,
+      "cliente_actual": null,
+      "calificacion": 5.0,
+      "servicios": 0,
+      "ganancia": 0.0,
+      "color": "red"
+    },
+    {
+      "id": 4,
+      "placa": "9753RTY",
+      "nombre": "Miguel Torres",
+      "ubicacion": [
+        40.4306,
+        -3.7162
+      ],
+      "disponible": true,
+      "cliente_actual": null,
+      "calificacion": 5.0,
+      "servicios": 0,
+      "ganancia": 0.0,
+      "color": "darkgreen"
+    },
+    {
+      "id": 5,
+      "placa": "5678XYZ",
+      "nombre": "Maria Lopez",
+      "ubicacion": [
+        40.4306,
+        -3.7162
+      ],
+      "disponible": true,
+      "cliente_actual": null,
+      "calificacion": 5.0,
+      "servicios": 0,
+      "ganancia": 0.0,
+      "color": "gray"
+    }
+  ],
+  "clientes_activos": [],
+  "estadisticas": {
+    "taxis_disponibles": 5,
+    "taxis_ocupados": 0,
+    "clientes_en_servicio": 0
+  }
+}

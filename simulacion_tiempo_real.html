@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIETAXI - Simulación en Tiempo Real</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr 350px;
+            grid-template-rows: 60px 1fr;
+            height: 100vh;
+            gap: 0;
+        }
+        
+        .header {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .header-stats {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+        
+        .sidebar-left {
+            background: #2d2d2d;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #444;
+        }
+        
+        .sidebar-right {
+            background: #2d2d2d;
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid #444;
+        }
+        
+        #map {
+            height: 100%;
+            background: #1a1a1a;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            color: #667eea;
+        }
+        
+        .taxi-item {
+            background: #3a3a3a;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .taxi-item.disponible {
+            border-left-color: #27ae60;
+        }
+        
+        .taxi-item.ocupado {
+            border-left-color: #e74c3c;
+        }
+        
+        .taxi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .taxi-placa {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .taxi-estado {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .taxi-info {
+            font-size: 12px;
+            color: #aaa;
+            line-height: 1.6;
+        }
+        
+        .evento-item {
+            background: #3a3a3a;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            border-left: 3px solid;
+        }
+        
+        .evento-item.solicitud { border-left-color: #3498db; }
+        .evento-item.asignacion { border-left-color: #f39c12; }
+        .evento-item.completado { border-left-color: #27ae60; }
+        .evento-item.sistema { border-left-color: #9b59b6; }
+        
+        .evento-time {
+            font-size: 10px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: #3a3a3a;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-card-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card-label {
+            font-size: 11px;
+            color: #aaa;
+        }
+        
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            padding: 30px 50px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 10000;
+        }
+        
+        .spinner {
+            border: 4px solid #333;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .taxi-marker {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        
+        .cliente-marker {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #3498db;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <div>Cargando simulación...</div>
+    </div>
+    
+    <div class="container">
+        <header class="header">
+            <h1>🚖 UNIETAXI - Simulación en Tiempo Real</h1>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-dia">1</div>
+                    <div class="stat-label">DÍA</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-servicios">0</div>
+                    <div class="stat-label">SERVICIOS</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-ganancia">$0</div>
+                    <div class="stat-label">GANANCIA</div>
+                </div>
+            </div>
+        </header>
+        
+        <aside class="sidebar-left">
+            <div class="section-title">🚕 TAXIS ACTIVOS</div>
+            <div id="lista-taxis"></div>
+            
+            <div class="section-title" style="margin-top: 20px;">📊 ESTADÍSTICAS</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-value" id="taxis-disponibles">0</div>
+                    <div class="stat-card-label">Disponibles</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-value" id="taxis-ocupados">0</div>
+                    <div class="stat-card-label">Ocupados</div>
+                </div>
+            </div>
+        </aside>
+        
+        <main id="map"></main>
+        
+        <aside class="sidebar-right">
+            <div class="section-title">📋 EVENTOS EN TIEMPO REAL</div>
+            <div id="eventos-lista"></div>
+        </aside>
+    </div>
+    
+    <script>
+        // Variables globales
+        let map;
+        let taxiMarkers = {};
+        let clienteMarkers = {};
+        let routeLines = {};
+        
+        // Inicializar mapa
+        function initMap() {
+            map = L.map('map').setView([40.4168, -3.7034], 13);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap | UNIETAXI'
+            }).addTo(map);
+            
+            // Círculo de radio de búsqueda
+            L.circle([40.4168, -3.7034], {
+                radius: 2000.0,
+                color: '#667eea',
+                fillColor: '#667eea',
+                fillOpacity: 0.1,
+                weight: 2
+            }).addTo(map).bindPopup('Radio de búsqueda: 2.0 km');
+            
+            // Marcador central (Sol)
+            L.marker([40.4168, -3.7034], {
+                icon: L.divIcon({
+                    className: 'centro-marker',
+                    html: '<div style="font-size: 30px;">⭐</div>',
+                    iconSize: [40, 40]
+                })
+            }).addTo(map).bindPopup('<b>Puerta del Sol</b><br>Centro de operaciones');
+        }
+        
+        // Actualizar datos
+        async function actualizarDatos() {
+            try {
+                const response = await fetch('data/simulacion_live.json?t=' + Date.now());
+                const datos = await response.json();
+                
+                // Actualizar estadísticas header
+                document.getElementById('stat-dia').textContent = datos.dia_actual;
+                document.getElementById('stat-servicios').textContent = datos.total_servicios;
+                document.getElementById('stat-ganancia').textContent = '$' + datos.ganancia_empresa.toFixed(2);
+                
+                // Actualizar estadísticas sidebar
+                document.getElementById('taxis-disponibles').textContent = datos.estadisticas.taxis_disponibles;
+                document.getElementById('taxis-ocupados').textContent = datos.estadisticas.taxis_ocupados;
+                
+                // Actualizar taxis
+                actualizarTaxis(datos.taxis);
+                
+                // Actualizar clientes
+                actualizarClientes(datos.clientes_activos);
+                
+                // Actualizar eventos
+                actualizarEventos(datos.eventos);
+                
+            } catch (error) {
+                console.error('Error actualizando datos:', error);
+            }
+        }
+        
+        // Actualizar taxis en mapa y lista
+        function actualizarTaxis(taxis) {
+            const listaTaxis = document.getElementById('lista-taxis');
+            listaTaxis.innerHTML = '';
+            
+            taxis.forEach(taxi => {
+                // Actualizar marcador en mapa
+                if (!taxiMarkers[taxi.id]) {
+                    const icon = L.divIcon({
+                        className: 'taxi-marker',
+                        html: `<div style="background: ${taxi.color}; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center;">🚕</div>`,
+                        iconSize: [40, 40]
+                    });
+                    
+                    taxiMarkers[taxi.id] = L.marker(taxi.ubicacion, { icon: icon }).addTo(map);
+                } else {
+                    // Animar movimiento
+                    taxiMarkers[taxi.id].setLatLng(taxi.ubicacion);
+                }
+                
+                // Actualizar popup
+                let popupContent = `<b>${taxi.placa}</b><br>`;
+                popupContent += `👤 ${taxi.nombre}<br>`;
+                popupContent += `⭐ ${taxi.calificacion}<br>`;
+                popupContent += `📊 ${taxi.servicios} servicios<br>`;
+                popupContent += `💰 $${taxi.ganancia}<br>`;
+                popupContent += `Estado: ${taxi.disponible ? '✅ Disponible' : '🚗 En servicio'}`;
+                taxiMarkers[taxi.id].bindPopup(popupContent);
+                
+                // Agregar a lista
+                const taxiItem = document.createElement('div');
+                taxiItem.className = `taxi-item ${taxi.disponible ? 'disponible' : 'ocupado'}`;
+                taxiItem.innerHTML = `
+                    <div class="taxi-header">
+                        <div class="taxi-placa">🚕 ${taxi.placa}</div>
+                        <div class="taxi-estado">${taxi.disponible ? 'LIBRE' : 'OCUPADO'}</div>
+                    </div>
+                    <div class="taxi-info">
+                        👤 ${taxi.nombre}<br>
+                        ⭐ ${taxi.calificacion} | 📊 ${taxi.servicios}<br>
+                        💰 $${taxi.ganancia}
+                    </div>
+                `;
+                listaTaxis.appendChild(taxiItem);
+            });
+        }
+        
+        // Actualizar clientes en mapa
+        function actualizarClientes(clientes) {
+            // Limpiar marcadores antiguos
+            Object.values(clienteMarkers).forEach(marker => map.removeLayer(marker));
+            clienteMarkers = {};
+            
+            // Limpiar líneas de ruta
+            Object.values(routeLines).forEach(line => map.removeLayer(line));
+            routeLines = {};
+            
+            clientes.forEach(cliente => {
+                // Marcador de cliente
+                const icon = L.divIcon({
+                    className: 'cliente-marker',
+                    html: '<div>🧍</div>',
+                    iconSize: [35, 35]
+                });
+                
+                clienteMarkers[cliente.cedula] = L.marker(cliente.ubicacion, { icon: icon }).addTo(map);
+                clienteMarkers[cliente.cedula].bindPopup(`<b>${cliente.nombre}</b><br>Taxi: ${cliente.taxi_asignado}`);
+                
+                // Línea hacia destino
+                routeLines[cliente.cedula] = L.polyline([cliente.ubicacion, cliente.destino], {
+                    color: '#3498db',
+                    weight: 2,
+                    dashArray: '5, 10',
+                    opacity: 0.6
+                }).addTo(map);
+            });
+        }
+        
+        // Actualizar eventos
+        function actualizarEventos(eventos) {
+            const listaEventos = document.getElementById('eventos-lista');
+            listaEventos.innerHTML = '';
+            
+            eventos.reverse().forEach(evento => {
+                const eventoItem = document.createElement('div');
+                eventoItem.className = `evento-item ${evento.tipo}`;
+                eventoItem.innerHTML = `
+                    <div class="evento-time">${evento.timestamp}</div>
+                    <div>${evento.mensaje}</div>
+                `;
+                listaEventos.appendChild(eventoItem);
+            });
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            document.getElementById('loading').style.display = 'none';
+            
+            // Actualizar cada 500ms
+            setInterval(actualizarDatos, 500);
+            actualizarDatos();
+        });
+    </script>
+</body>
+</html>

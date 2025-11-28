@@ -20,7 +20,7 @@ import webbrowser
 
 import config
 from sistema_central import SistemaCentral, cargar_clientes_desde_json, cargar_taxis_desde_json
-from main import hilo_cliente, hilo_sistema_principal
+from hilos import hilo_cliente, hilo_sistema_principal
 
 # ==================== GENERADOR DE HTML EN TIEMPO REAL ====================
 

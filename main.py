@@ -22,6 +22,7 @@ import webbrowser
 import config
 from simulacion_web import iniciar_simulacion_web, SistemaCentralWeb, SimulacionWebGenerator
 from sistema_central import cargar_clientes_desde_json, cargar_taxis_desde_json
+from hilos import hilo_cliente, hilo_sistema_principal
 
 # ==================== FUNCIÓN PRINCIPAL ====================
 
@@ -134,7 +135,6 @@ def iniciar_modo_terminal(num_dias: int):
     print("="*60)
     
     from sistema_central import SistemaCentral
-    from main import hilo_cliente, hilo_sistema_principal
     
     # Crear sistema
     sistema = SistemaCentral(num_dias=num_dias)
