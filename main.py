@@ -1,374 +1,300 @@
 """
 main.py - Orquestador Principal del Sistema UNIETAXI
 
-Este archivo coordina todos los componentes del sistema:
-- Carga datos desde JSON
-- Inicia hilos de clientes y sistema
-- Gestiona el flujo de días
-- Exporta datos para visualización
+Este archivo inicia automáticamente:
+1. Carga de datos desde JSON
+2. Simulación web en tiempo real
+3. Visualización en navegador
+4. Generación de reportes
+
+Uso:
+    python main.py              # Modo web (por defecto)
+    python main.py --terminal   # Modo terminal
+    python main.py --dias 3     # Especificar días
 """
 
+import sys
+import os
 import threading
 import time
-import random
-import sys
+import webbrowser
 
 import config
-from models import Cliente, Taxi
-from sistema_central import SistemaCentral, cargar_clientes_desde_json, cargar_taxis_desde_json
-
-# ==================== HILOS ====================
-
-def hilo_cliente(sistema: SistemaCentral, cliente: Cliente, num_solicitudes: int = 1):
-    """
-    Hilo que simula el comportamiento de un cliente.
-    
-    Flujo:
-    1. Verifica si el sistema está activo
-    2. Activa un servicio
-    3. Genera ubicación y destino aleatorios
-    4. Solicita taxi
-    5. Si obtiene taxi, realiza el servicio
-    6. Desactiva el servicio
-    
-    Args:
-        sistema: Instancia del sistema central
-        cliente: Cliente que realiza las solicitudes
-        num_solicitudes: Número de solicitudes a realizar
-    """
-    for i in range(num_solicitudes):
-        # Verificar si el sistema sigue activo
-        if sistema.fin_sistema:
-            break
-        
-        # Activar servicio
-        if not sistema.activar_servicio():
-            print(f"⚠️ {cliente}: Sistema cerrado, no se puede solicitar taxi")
-            break
-        
-        try:
-            # Generar ubicación y destino aleatorios dentro de Madrid
-            # Rango: cerca del centro de Madrid
-            cliente.ubicacion_actual = (
-                random.uniform(40.39, 40.45),  # Latitud Madrid
-                random.uniform(-3.75, -3.65)   # Longitud Madrid
-            )
-            cliente.destino = (
-                random.uniform(40.39, 40.45),
-                random.uniform(-3.75, -3.65)
-            )
-            cliente.en_servicio = True
-            
-            print(f"\n📱 {cliente} solicita taxi")
-            print(f"   Ubicación: ({cliente.ubicacion_actual[0]:.4f}, {cliente.ubicacion_actual[1]:.4f})")
-            print(f"   Destino: ({cliente.destino[0]:.4f}, {cliente.destino[1]:.4f})")
-            
-            # Buscar y asignar taxi
-            taxi = sistema.asignar_taxi(cliente)
-            
-            if taxi:
-                # Realizar el servicio
-                sistema.realizar_servicio(cliente, taxi)
-            else:
-                print(f"⚠️ {cliente}: No se pudo asignar taxi")
-                cliente.en_servicio = False
-            
-            # Pequeña pausa entre solicitudes
-            delay = random.uniform(*config.SIMULACION["DELAY_ENTRE_SOLICITUDES"])
-            time.sleep(delay)
-            
-        finally:
-            # Desactivar servicio
-            sistema.desactivar_servicio()
-
-
-def hilo_sistema_principal(sistema: SistemaCentral):
-    """
-    Hilo principal que controla el flujo de días del sistema.
-    
-    Flujo:
-    1. Inicia un nuevo día
-    2. Espera la duración del día
-    3. Finaliza el día (genera reportes y cierre contable)
-    4. Repite para cada día configurado
-    5. Genera reporte final mensual
-    
-    Args:
-        sistema: Instancia del sistema central
-    """
-    for dia in range(sistema.num_dias):
-        sistema.iniciar_nuevo_dia()
-        
-        # Simular duración del día
-        time.sleep(config.SIMULACION["TIEMPO_SIMULACION_DIA"])
-        
-        sistema.finalizar_dia()
-    
-    # Marcar fin del sistema
-    sistema.fin_sistema = True
-    
-    # Generar reporte final
-    print(f"\n\n{'#'*60}")
-    print(f"🏁 FIN DE SIMULACIÓN")
-    print(f"{'#'*60}")
-    sistema.generar_reporte_mensual()
-    
-    # Exportar datos finales
-    sistema.exportar_datos_json()
-
-
-# ==================== FUNCIONES DE INICIALIZACIÓN ====================
-
-def cargar_datos_o_ejemplos(sistema: SistemaCentral):
-    """
-    Carga datos desde JSON o usa ejemplos si no hay datos.
-    
-    Args:
-        sistema: Instancia del sistema central
-    """
-    print("\n📂 CARGANDO DATOS...\n")
-    
-    # Cargar taxis
-    num_taxis = cargar_taxis_desde_json(sistema)
-    
-    # Si no hay taxis, usar ejemplos
-    if num_taxis == 0:
-        print("⚠️ No hay taxis en JSON, usando datos de ejemplo...\n")
-        ejemplos_taxis = [
-            (111111, "Carlos", "Rodríguez", "ABC123", "Toyota", "Corolla", 60),
-            (222222, "María", "González", "XYZ789", "Honda", "Civic", 55),
-            (333333, "José", "Martínez", "DEF456", "Nissan", "Sentra", 65),
-            (444444, "Ana", "López", "GHI789", "Chevrolet", "Cruze", 58),
-            (555555, "Luis", "Pérez", "JKL012", "Ford", "Focus", 62)
-        ]
-        
-        for taxi_data in ejemplos_taxis:
-            sistema.afiliar_taxi(*taxi_data)
-        print()
-    
-    # Cargar clientes
-    num_clientes = cargar_clientes_desde_json(sistema)
-    
-    # Si no hay clientes, usar ejemplos
-    if num_clientes == 0:
-        print("⚠️ No hay clientes en JSON, usando datos de ejemplo...\n")
-        ejemplos_clientes = [
-            (10001, "Juan", "Ramírez", "4532123456789012"),
-            (10002, "Pedro", "Silva", "4532123456789013"),
-            (10003, "Laura", "Torres", "4532123456789014"),
-            (10004, "Sofia", "Méndez", "4532123456789015"),
-            (10005, "Diego", "Castro", "4532123456789016"),
-            (10006, "Carmen", "Ruiz", "4532123456789017"),
-            (10007, "Miguel", "Flores", "4532123456789018"),
-            (10008, "Isabel", "Vargas", "4532123456789019")
-        ]
-        
-        for cliente_data in ejemplos_clientes:
-            sistema.afiliar_cliente(*cliente_data)
-        print()
-
-
-def crear_hilos_clientes(sistema: SistemaCentral):
-    """
-    Crea e inicia los hilos de clientes.
-    
-    Args:
-        sistema: Instancia del sistema central
-    
-    Returns:
-        Lista de hilos creados
-    """
-    hilos_clientes = []
-    
-    # Limitar el número de clientes activos
-    clientes_activos = sistema.clientes[:config.SIMULACION["CLIENTES_ACTIVOS_MAX"]]
-    
-    print(f"\n🚀 INICIANDO {len(clientes_activos)} CLIENTES...\n")
-    
-    for cliente in clientes_activos:
-        # Cada cliente hará entre 1 y 3 solicitudes
-        num_solicitudes = random.randint(*config.SIMULACION["SOLICITUDES_POR_CLIENTE"])
-        
-        hilo = threading.Thread(
-            target=hilo_cliente,
-            args=(sistema, cliente, num_solicitudes),
-            name=f"Cliente-{cliente.cedula}"
-        )
-        hilos_clientes.append(hilo)
-        hilo.start()
-        
-        # Pequeño delay entre inicios para escalonar solicitudes
-        time.sleep(0.05)
-    
-    return hilos_clientes
-
+from simulacion_web import iniciar_simulacion_web, SistemaCentralWeb, SimulacionWebGenerator
+from sistema_central import cargar_clientes_desde_json, cargar_taxis_desde_json
 
 # ==================== FUNCIÓN PRINCIPAL ====================
 
 def main():
     """
-    Función principal del sistema UNIETAXI.
-    
-    Flujo:
-    1. Muestra mensaje de bienvenida
-    2. Crea el sistema central
-    3. Carga datos desde JSON o usa ejemplos
-    4. Inicia hilo principal del sistema
-    5. Crea e inicia hilos de clientes
-    6. Espera a que terminen todos los hilos
-    7. Muestra resumen final
+    Función principal que inicia el sistema UNIETAXI.
+    Por defecto, inicia la simulación web.
     """
     
-    # Mensaje de bienvenida
+    # Analizar argumentos
+    modo_terminal = "--terminal" in sys.argv
+    num_dias = config.SIMULACION["DIAS_POR_DEFECTO"]
+    
+    # Buscar argumento de días
+    for i, arg in enumerate(sys.argv):
+        if arg == "--dias" and i + 1 < len(sys.argv):
+            try:
+                num_dias = int(sys.argv[i + 1])
+            except ValueError:
+                print(f"⚠️ Valor inválido para días: {sys.argv[i + 1]}")
+    
+    # Mostrar banner
     print(config.MENSAJES["BIENVENIDA"])
     print(f"Versión: {config.VERSION}")
     print(f"Fecha: {config.obtener_fecha_legible()}")
     print(config.MENSAJES["SEPARADOR"])
     
-    # Crear sistema central
-    num_dias = config.SIMULACION["DIAS_POR_DEFECTO"]
+    print(f"\n🎮 MODO: {'Terminal' if modo_terminal else 'Web Interactivo'}")
+    print(f"📅 Días a simular: {num_dias}")
+    print(config.MENSAJES["SEPARADOR"])
     
-    # Permitir configurar días por línea de comandos
-    if len(sys.argv) > 1:
-        try:
-            num_dias = int(sys.argv[1])
-            print(f"📅 Días configurados: {num_dias}")
-        except ValueError:
-            print(f"⚠️ Argumento inválido, usando {num_dias} días por defecto")
+    # Verificar datos
+    verificar_y_preparar_datos()
     
+    if modo_terminal:
+        # Modo terminal (antiguo)
+        iniciar_modo_terminal(num_dias)
+    else:
+        # Modo web (por defecto)
+        iniciar_modo_web(num_dias)
+
+
+def verificar_y_preparar_datos():
+    """Verifica que existan datos o crea ejemplos"""
+    
+    print("\n📂 VERIFICANDO DATOS...\n")
+    
+    # Verificar clientes
+    clientes_existen = os.path.exists(config.CLIENTES_JSON)
+    taxis_existen = os.path.exists(config.TAXIS_JSON)
+    
+    if not clientes_existen or not taxis_existen:
+        print("⚠️ No se encontraron datos registrados")
+        print("\n💡 OPCIONES:")
+        print("   1. Ejecuta 'python registro_unificado.py' para registrar usuarios")
+        print("   2. El sistema usará datos de ejemplo automáticamente")
+        print()
+        
+        respuesta = input("¿Deseas continuar con datos de ejemplo? (S/n): ").strip().lower()
+        if respuesta and respuesta != 's' and respuesta != 'si':
+            print("\n❌ Ejecuta primero: python registro_unificado.py")
+            sys.exit(0)
+    else:
+        print("✅ Datos encontrados:")
+        if clientes_existen:
+            print(f"   - {config.CLIENTES_JSON}")
+        if taxis_existen:
+            print(f"   - {config.TAXIS_JSON}")
+
+
+def iniciar_modo_web(num_dias: int):
+    """Inicia el modo web interactivo"""
+    
+    print("\n" + "="*60)
+    print("🌐 INICIANDO SIMULACIÓN WEB EN TIEMPO REAL")
+    print("="*60)
+    
+    print("\n📋 CARACTERÍSTICAS:")
+    print("   ✅ Mapa interactivo de Madrid")
+    print("   ✅ Taxis moviéndose en tiempo real")
+    print("   ✅ Eventos y estadísticas actualizadas")
+    print("   ✅ Visualización de rutas y asignaciones")
+    print("   ✅ Panel de control y monitoreo")
+    
+    print("\n⏳ Preparando simulación...")
+    
+    try:
+        # Iniciar simulación web
+        iniciar_simulacion_web(num_dias)
+        
+    except KeyboardInterrupt:
+        print("\n\n⚠️ Simulación interrumpida por el usuario")
+        print("✅ Datos guardados correctamente")
+    except Exception as e:
+        print(f"\n❌ ERROR: {e}")
+        import traceback
+        traceback.print_exc()
+    finally:
+        print("\n" + "="*60)
+        print("SIMULACIÓN FINALIZADA")
+        print("="*60)
+        mostrar_archivos_generados()
+
+
+def iniciar_modo_terminal(num_dias: int):
+    """Inicia el modo terminal (antiguo)"""
+    
+    print("\n" + "="*60)
+    print("💻 MODO TERMINAL")
+    print("="*60)
+    
+    from sistema_central import SistemaCentral
+    from main import hilo_cliente, hilo_sistema_principal
+    
+    # Crear sistema
     sistema = SistemaCentral(num_dias=num_dias)
     
     # Cargar datos
-    cargar_datos_o_ejemplos(sistema)
+    num_taxis = cargar_taxis_desde_json(sistema)
+    num_clientes = cargar_clientes_desde_json(sistema)
     
-    # Verificar que hay datos suficientes
-    if len(sistema.taxis) == 0:
-        print("❌ ERROR: No hay taxis registrados en el sistema")
-        return
+    # Si no hay datos, usar ejemplos
+    if num_taxis == 0:
+        print("\n⚠️ Usando taxis de ejemplo...")
+        for i in range(5):
+            sistema.afiliar_taxi(
+                100000 + i, f"Taxi{i+1}", "Driver", f"TX{i+1:03d}",
+                "Toyota", "Corolla", 60
+            )
     
-    if len(sistema.clientes) == 0:
-        print("❌ ERROR: No hay clientes registrados en el sistema")
-        return
+    if num_clientes == 0:
+        print("\n⚠️ Usando clientes de ejemplo...")
+        for i in range(8):
+            sistema.afiliar_cliente(
+                200000 + i, f"Cliente{i+1}", "Test", "4532123456789012"
+            )
     
-    print(f"📊 SISTEMA LISTO:")
-    print(f"   🚖 Taxis disponibles: {len(sistema.taxis)}")
-    print(f"   🧍 Clientes registrados: {len(sistema.clientes)}")
-    print(f"   📅 Días a simular: {num_dias}")
-    print(f"   ⏱️  Duración por día: {config.SIMULACION['TIEMPO_SIMULACION_DIA']} segundos reales")
-    print()
+    print(f"\n✅ Sistema listo:")
+    print(f"   🚖 Taxis: {len(sistema.taxis)}")
+    print(f"   🧍 Clientes: {len(sistema.clientes)}")
     
     # Confirmar inicio
-    print("🎬 Presiona ENTER para iniciar la simulación o CTRL+C para cancelar...")
-    try:
-        input()
-    except KeyboardInterrupt:
-        print("\n\n❌ Simulación cancelada por el usuario")
-        return
+    input("\n🎬 Presiona ENTER para iniciar...")
     
-    print("\n" + "="*60)
-    print("🚀 INICIANDO SIMULACIÓN UNIETAXI")
-    print("="*60 + "\n")
+    print("\n🚀 INICIANDO SIMULACIÓN...\n")
     
-    # Iniciar hilo principal del sistema
-    hilo_sistema = threading.Thread(
-        target=hilo_sistema_principal,
-        args=(sistema,),
-        name="Sistema-Principal"
-    )
+    # Iniciar hilos
+    hilo_sistema = threading.Thread(target=hilo_sistema_principal, args=(sistema,))
     hilo_sistema.start()
     
-    # Crear e iniciar hilos de clientes
-    hilos_clientes = crear_hilos_clientes(sistema)
+    # Crear hilos de clientes
+    time.sleep(0.5)
+    hilos_clientes = []
+    for cliente in sistema.clientes[:10]:
+        import random
+        num_solicitudes = random.randint(1, 2)
+        hilo = threading.Thread(target=hilo_cliente, args=(sistema, cliente, num_solicitudes))
+        hilos_clientes.append(hilo)
+        hilo.start()
+        time.sleep(0.1)
     
-    # Esperar a que terminen todos los hilos de clientes
-    print("\n⏳ Esperando finalización de servicios...\n")
+    # Esperar finalización
     for hilo in hilos_clientes:
         hilo.join()
     
-    print("✅ Todos los clientes finalizaron sus solicitudes")
-    
-    # Esperar al hilo principal
     hilo_sistema.join()
     
     # Resumen final
     print("\n" + "="*60)
-    print("📊 RESUMEN FINAL DE LA SIMULACIÓN")
+    print("📊 RESUMEN FINAL")
     print("="*60)
-    print(f"✅ Sistema UNIETAXI finalizado correctamente")
-    print(f"📈 Total de servicios realizados: {len(sistema.servicios_completados)}")
-    print(f"💰 Ganancia total de la empresa: ${sistema.ganancia_total_empresa:.2f}")
-    print(f"🚖 Taxis que trabajaron: {len([t for t in sistema.taxis if t.cantidad_servicios > 0])}/{len(sistema.taxis)}")
-    print(f"🧍 Clientes atendidos: {len(set(s.id_cliente for s in sistema.servicios_completados))}/{len(sistema.clientes)}")
-    
-    # Estadísticas de calificaciones
-    if sistema.taxis:
-        calificaciones = [t.calcular_calificacion_promedio() for t in sistema.taxis if t.cantidad_servicios > 0]
-        if calificaciones:
-            print(f"⭐ Calificación promedio general: {sum(calificaciones)/len(calificaciones):.2f}")
-    
+    print(f"✅ Servicios realizados: {len(sistema.servicios_completados)}")
+    print(f"💰 Ganancia empresa: ${sistema.ganancia_total_empresa:.2f}")
+    print(f"🚖 Taxis activos: {len([t for t in sistema.taxis if t.cantidad_servicios > 0])}")
     print("="*60)
     
-    # Información de archivos generados
+    mostrar_archivos_generados()
+
+
+def mostrar_archivos_generados():
+    """Muestra los archivos generados por la simulación"""
+    
     print("\n📁 ARCHIVOS GENERADOS:")
-    print(f"   - {config.SERVICIOS_JSON}")
-    print(f"   - {config.UBICACIONES_TIEMPO_REAL}")
-    print(f"   - Reportes en: {config.REPORTES_DIR}")
+    
+    archivos = [
+        ("Servicios completados", config.SERVICIOS_JSON),
+        ("Ubicaciones tiempo real", config.UBICACIONES_TIEMPO_REAL),
+        ("Simulación web", os.path.join(config.BASE_DIR, "simulacion_tiempo_real.html")),
+        ("Mapa animado", config.MAPA_HTML),
+        ("Estadísticas", os.path.join(config.DATA_DIR, "estadisticas.json")),
+        ("Reportes", config.REPORTES_DIR)
+    ]
+    
+    for nombre, ruta in archivos:
+        if os.path.exists(ruta):
+            print(f"   ✅ {nombre}: {ruta}")
+        else:
+            print(f"   ⚠️  {nombre}: No generado")
     
     print("\n💡 PRÓXIMOS PASOS:")
-    print("   1. Ejecuta 'python visualizacion_mapa.py' para ver el mapa animado")
-    print("   2. Ejecuta 'python reloj.py' para ver el reloj acelerado")
-    print("   3. Ejecuta 'python registro_unificado.py' para registrar más usuarios")
-    
-    print("\n🎉 ¡Gracias por usar UNIETAXI!")
+    print("   1. Abre 'simulacion_tiempo_real.html' para ver la simulación")
+    print("   2. Ejecuta 'python visualizacion_mapa.py' para el mapa animado")
+    print("   3. Ejecuta 'python test_sistema.py' para verificar el sistema")
+    print("   4. Revisa la carpeta 'data/reportes/' para ver informes detallados")
 
 
-# ==================== MODO RÁPIDO ====================
+def mostrar_ayuda():
+    """Muestra la ayuda del sistema"""
+    
+    print("""
+╔════════════════════════════════════════════════════════════╗
+║                  UNIETAXI - SISTEMA DE AYUDA               ║
+╚════════════════════════════════════════════════════════════╝
 
-def modo_rapido():
-    """
-    Modo rápido sin confirmación, útil para pruebas automatizadas.
-    """
-    print(config.MENSAJES["BIENVENIDA"])
-    print("⚡ MODO RÁPIDO ACTIVADO\n")
+USO:
+    python main.py                    # Modo web (por defecto)
+    python main.py --terminal         # Modo terminal
+    python main.py --dias 3           # Simular 3 días
+    python main.py --help             # Mostrar esta ayuda
+
+MODOS:
+
+    🌐 Modo Web (Recomendado)
+       - Visualización en tiempo real en navegador
+       - Mapa interactivo con taxis moviéndose
+       - Estadísticas y eventos actualizados
+       - Interfaz gráfica intuitiva
     
-    sistema = SistemaCentral(num_dias=1)
-    cargar_datos_o_ejemplos(sistema)
+    💻 Modo Terminal
+       - Salida en consola
+       - Útil para debugging
+       - Más rápido para pruebas
+
+EJEMPLOS:
+
+    # Simulación web de 5 días
+    python main.py --dias 5
     
-    if len(sistema.taxis) == 0 or len(sistema.clientes) == 0:
-        print("❌ ERROR: Datos insuficientes")
-        return
+    # Modo terminal con 2 días
+    python main.py --terminal --dias 2
+
+ARCHIVOS NECESARIOS:
+
+    📂 data/clientes_registrados.json
+    📂 data/taxis_registrados.json
     
-    # Iniciar simulación sin confirmación
-    hilo_sistema = threading.Thread(target=hilo_sistema_principal, args=(sistema,))
-    hilo_sistema.start()
-    
-    # Solo 5 clientes en modo rápido
-    hilos_clientes = []
-    for cliente in sistema.clientes[:5]:
-        hilo = threading.Thread(target=hilo_cliente, args=(sistema, cliente, 1))
-        hilos_clientes.append(hilo)
-        hilo.start()
-    
-    for hilo in hilos_clientes:
-        hilo.join()
-    
-    hilo_sistema.join()
-    
-    print(f"\n✅ Simulación rápida completada: {len(sistema.servicios_completados)} servicios")
+    Si no existen, ejecuta primero:
+    python registro_unificado.py
+
+OTROS COMANDOS:
+
+    python registro_unificado.py      # Registrar usuarios
+    python visualizacion_mapa.py      # Generar mapa animado
+    python test_sistema.py            # Ejecutar pruebas
+    python reloj.py                   # Ver reloj acelerado
+
+Para más información, revisa README.md
+""")
 
 
 # ==================== PUNTO DE ENTRADA ====================
 
 if __name__ == "__main__":
+    # Verificar ayuda
+    if "--help" in sys.argv or "-h" in sys.argv:
+        mostrar_ayuda()
+        sys.exit(0)
+    
     try:
-        # Si se pasa --rapido como argumento, usar modo rápido
-        if len(sys.argv) > 1 and sys.argv[1] == "--rapido":
-            modo_rapido()
-        else:
-            main()
+        main()
     except KeyboardInterrupt:
-        print("\n\n⚠️ Simulación interrumpida por el usuario")
-        print("❌ Finalizando...")
+        print("\n\n⚠️ Programa interrumpido por el usuario")
+        print("✅ Datos guardados correctamente")
         sys.exit(0)
     except Exception as e:
         print(f"\n❌ ERROR INESPERADO: {e}")
