@@ -1,12 +1,12 @@
 {
-  "timestamp": "2025-11-28 09:51:47",
+  "timestamp": "2025-12-02 09:40:06",
   "dia_actual": 3,
   "servicios_activos": 0,
   "total_servicios": 0,
   "ganancia_empresa": 0.0,
   "eventos": [
     {
-      "timestamp": "09:51:41",
+      "timestamp": "09:40:00",
       "tipo": "sistema",
       "mensaje": "🌅 Inicio del Día 1",
       "datos": {
@@ -14,39 +14,39 @@
       }
     },
     {
-      "timestamp": "09:51:42",
+      "timestamp": "09:40:01",
       "tipo": "solicitud",
       "mensaje": "❌ No hay taxis para Juan Pablo",
       "datos": {
-        "cliente": 7590638
+        "cliente": 87739005
       }
     },
     {
-      "timestamp": "09:51:42",
+      "timestamp": "09:40:01",
       "tipo": "solicitud",
       "mensaje": "❌ No hay taxis para Maria Sanchez",
       "datos": {
-        "cliente": 20388574
+        "cliente": 79317275
       }
     },
     {
-      "timestamp": "09:51:42",
+      "timestamp": "09:40:01",
       "tipo": "solicitud",
       "mensaje": "❌ No hay taxis para Juan Pablo",
       "datos": {
-        "cliente": 7590638
+        "cliente": 87739005
       }
     },
     {
-      "timestamp": "09:51:42",
+      "timestamp": "09:40:01",
       "tipo": "solicitud",
       "mensaje": "❌ No hay taxis para Maria Sanchez",
       "datos": {
-        "cliente": 20388574
+        "cliente": 79317275
       }
     },
     {
-      "timestamp": "09:51:44",
+      "timestamp": "09:40:03",
       "tipo": "sistema",
       "mensaje": "🌙 Finalizando Día 1...",
       "datos": {
@@ -54,7 +54,7 @@
       }
     },
     {
-      "timestamp": "09:51:44",
+      "timestamp": "09:40:03",
       "tipo": "sistema",
       "mensaje": "🌅 Inicio del Día 2",
       "datos": {
@@ -62,7 +62,7 @@
       }
     },
     {
-      "timestamp": "09:51:47",
+      "timestamp": "09:40:06",
       "tipo": "sistema",
       "mensaje": "🌙 Finalizando Día 2...",
       "datos": {
@@ -70,7 +70,7 @@
       }
     },
     {
-      "timestamp": "09:51:47",
+      "timestamp": "09:40:06",
       "tipo": "sistema",
       "mensaje": "🏁 Simulación finalizada",
       "datos": {}
@@ -82,8 +82,8 @@
       "placa": "1234ABC",
       "nombre": "Carlos Ramirez",
       "ubicacion": [
-        40.425,
-        -3.685
+        40.42,
+        -3.71
       ],
       "disponible": true,
       "cliente_actual": null,
@@ -97,8 +97,8 @@
       "placa": "7891XYZ",
       "nombre": "Lucia Fernandez",
       "ubicacion": [
-        40.4306,
-        -3.7162
+        40.425,
+        -3.685
       ],
       "disponible": true,
       "cliente_actual": null,
@@ -112,8 +112,8 @@
       "placa": "2468LMN",
       "nombre": "Juan Perez",
       "ubicacion": [
-        40.4234,
-        -3.7109
+        40.4178,
+        -3.7094
       ],
       "disponible": true,
       "cliente_actual": null,
@@ -127,8 +127,8 @@
       "placa": "9753RTY",
       "nombre": "Miguel Torres",
       "ubicacion": [
-        40.4306,
-        -3.7162
+        40.4178,
+        -3.7094
       ],
       "disponible": true,
       "cliente_actual": null,
@@ -142,8 +142,8 @@
       "placa": "5678XYZ",
       "nombre": "Maria Lopez",
       "ubicacion": [
-        40.4306,
-        -3.7162
+        40.4234,
+        -3.7109
       ],
       "disponible": true,
       "cliente_actual": null,
