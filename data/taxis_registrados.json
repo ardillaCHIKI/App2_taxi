@@ -10,7 +10,7 @@
         "seguro": "Si",
         "impuestos": "Si",
         "placa_estado": "Bueno",
-        "fecha_registro": "2025-11-17 10:56:27",
+        "fecha_registro": "2025-12-10 09:59:47",
         "estado": "activo"
     },
     {
@@ -21,38 +21,38 @@
         "certificado_medico": "Si",
         "infracciones": "Si",
         "placa": "7891XYZ",
-        "seguro": "Vigente",
+        "seguro": "Si",
         "impuestos": "Si",
         "placa_estado": "Bueno",
-        "fecha_registro": "2025-11-17 11:06:02",
+        "fecha_registro": "2025-12-10 10:01:32",
         "estado": "activo"
     },
     {
         "nombre": "Juan Perez",
         "identificacion": "12345678E",
-        "licencia": "Si",
+        "licencia": "Vigente",
         "antecedentes": "Si",
         "certificado_medico": "Si",
         "infracciones": "Si",
         "placa": "2468LMN",
         "seguro": "Si",
         "impuestos": "Si",
-        "placa_estado": "Si",
-        "fecha_registro": "2025-11-21 09:35:44",
+        "placa_estado": "Bueno",
+        "fecha_registro": "2025-12-10 10:01:55",
         "estado": "activo"
     },
     {
         "nombre": "Miguel Torres",
         "identificacion": "23456781F",
-        "licencia": "Si",
+        "licencia": "Vigente",
         "antecedentes": "Si",
         "certificado_medico": "Si",
         "infracciones": "Si",
         "placa": "9753RTY",
         "seguro": "Si",
         "impuestos": "Si",
-        "placa_estado": "Si",
-        "fecha_registro": "2025-11-21 09:36:27",
+        "placa_estado": "Bueno",
+        "fecha_registro": "2025-12-10 10:02:13",
         "estado": "activo"
     },
     {
@@ -65,8 +65,8 @@
         "placa": "5678XYZ",
         "seguro": "Si",
         "impuestos": "Si",
-        "placa_estado": "Si",
-        "fecha_registro": "2025-11-21 09:39:02",
+        "placa_estado": "Bueno",
+        "fecha_registro": "2025-12-10 10:02:37",
         "estado": "activo"
     }
 ]
