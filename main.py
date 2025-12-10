@@ -10,7 +10,7 @@ Este archivo inicia automáticamente:
 Uso:
     python main.py              # Modo web (por defecto)
     python main.py --terminal   # Modo terminal
-    python main.py --dias 3     # Especificar días
+    python main.py --dias 2     # Especificar días
 """
 
 import sys
