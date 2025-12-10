@@ -13,21 +13,23 @@ import config
 
 def cargar_taxis_registrados():
     """
-    Carga los taxis desde el archivo JSON.
+    Carga los taxis desde el archivo JSON en la raíz del proyecto.
     
     Returns:
         Lista de taxis o lista vacía si no existe
     """
     try:
-        with open(config.TAXIS_JSON, "r", encoding="utf-8") as f:
+        # Buscar taxis_registrados.json en la raíz del proyecto (fuera de data/)
+        archivo_taxis = os.path.join(config.BASE_DIR, "taxis_registrados.json")
+        with open(archivo_taxis, "r", encoding="utf-8") as f:
             taxistas_registrados = json.load(f)
-        print(f"✅ Cargados {len(taxistas_registrados)} taxis desde {config.TAXIS_JSON}")
+        print(f"✅ Cargados {len(taxistas_registrados)} taxis desde {archivo_taxis}")
         return taxistas_registrados
     except FileNotFoundError:
-        print(f"❌ No se encontró el archivo {config.TAXIS_JSON}")
+        print(f"❌ No se encontró el archivo en raíz: taxis_registrados.json")
         return []
     except json.JSONDecodeError:
-        print(f"❌ Error al leer {config.TAXIS_JSON}")
+        print(f"❌ Error al leer taxis_registrados.json")
         return []
 
 

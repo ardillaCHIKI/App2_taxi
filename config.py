@@ -44,6 +44,9 @@ TIEMPO_REAL = {
 TAXI_CONFIG = {
     "RADIO_BUSQUEDA_KM": 2.0,  # Radio de búsqueda en kilómetros
     "TARIFA_POR_KM": 2.5,  # Dólares por kilómetro
+    # Nueva tarifa por metro (dólares por metro). Si se configura, tiene prioridad
+    # sobre `TARIFA_POR_KM` y se aplicará a todos los clientes.
+    "TARIFA_POR_METRO": 1.0,
     "VELOCIDAD_PROMEDIO_KMH": 60,  # Velocidad promedio
     "COMISION_EMPRESA": 0.20  # 20% de comisión para UNIETAXI
 }

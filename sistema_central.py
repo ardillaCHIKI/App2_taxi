@@ -323,7 +323,14 @@ class SistemaCentral:
         
         # Calcular costo del servicio
         distancia_km = self.calcular_distancia(cliente.ubicacion_actual, cliente.destino)
-        costo = distancia_km * config.TAXI_CONFIG["TARIFA_POR_KM"]
+        # Convertir a metros
+        distancia_m = distancia_km * 1000.0
+        tarifa_metro = config.TAXI_CONFIG.get("TARIFA_POR_METRO")
+        if tarifa_metro is not None:
+            # Cobrar por metro (prioridad si está configurado)
+            costo = distancia_m * tarifa_metro
+        else:
+            costo = distancia_km * config.TAXI_CONFIG["TARIFA_POR_KM"]
         
         # Crear registro de servicio
         self.contador_servicios += 1
