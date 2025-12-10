@@ -59,8 +59,13 @@ def hilo_sistema_principal(sistema: SistemaCentral):
     """
     for dia in range(sistema.num_dias):
         sistema.iniciar_nuevo_dia()
-        # Tiempo real acelerado: dormir un poco para simular paso de días
-        time.sleep(0.05)
+        # Esperar la duración configurada de simulación por día para permitir que
+        # los hilos de clientes procesen solicitudes antes de finalizar el día.
+        duracion = getattr(config, 'SIMULACION', {}).get('TIEMPO_SIMULACION_DIA', 2.0)
+        try:
+            time.sleep(duracion)
+        except Exception:
+            time.sleep(0.5)
         sistema.finalizar_dia()
 
     sistema.fin_sistema = True

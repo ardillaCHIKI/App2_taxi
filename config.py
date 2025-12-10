@@ -115,7 +115,7 @@ SIMULACION = {
     "TAXIS_ACTIVOS_MAX": 10,
     "SOLICITUDES_POR_CLIENTE": (1, 3),  # Min y max solicitudes
     "DELAY_ENTRE_SOLICITUDES": (0.1, 0.5),  # Segundos
-    "TIEMPO_SIMULACION_DIA": 2.0  # Segundos reales por día simulado
+    "TIEMPO_SIMULACION_DIA": 6.0  # Segundos reales por día simulado (aumentado para más actividad)
 }
 
 # ==================== COLORES PARA VISUALIZACIÓN ====================

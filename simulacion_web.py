@@ -19,6 +19,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 import webbrowser
 
 import config
+import random
 from sistema_central import SistemaCentral, cargar_clientes_desde_json, cargar_taxis_desde_json
 from hilos import hilo_cliente, hilo_sistema_principal
 
@@ -683,6 +684,15 @@ def iniciar_simulacion_web(num_dias: int = 2):
             sistema.afiliar_cliente(
                 200000 + i, f"Cliente{i+1}", "Test", "4532123456789012"
             )
+            # Asignar ubicación y destino aleatorios dentro de los puntos conocidos
+            try:
+                cliente = sistema.clientes[-1]
+                punto = random.choice(config.PUNTOS_INICIO_TAXIS)
+                destino = random.choice(config.RUTA_PRINCIPAL)
+                cliente.ubicacion_actual = (punto[0], punto[1])
+                cliente.destino = (destino[0], destino[1])
+            except Exception:
+                pass
     
     print(f"\n✅ Sistema listo:")
     print(f"   🚖 Taxis: {len(sistema.taxis)}")

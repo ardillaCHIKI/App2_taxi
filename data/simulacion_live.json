@@ -1,52 +1,140 @@
 {
-  "timestamp": "2025-12-02 09:40:06",
+  "timestamp": "2025-12-10 10:10:49",
   "dia_actual": 3,
   "servicios_activos": 0,
   "total_servicios": 0,
   "ganancia_empresa": 0.0,
   "eventos": [
     {
-      "timestamp": "09:40:00",
-      "tipo": "sistema",
-      "mensaje": "🌅 Inicio del Día 1",
-      "datos": {
-        "dia": 1
-      }
-    },
-    {
-      "timestamp": "09:40:01",
+      "timestamp": "10:10:43",
       "tipo": "solicitud",
-      "mensaje": "❌ No hay taxis para Juan Pablo",
+      "mensaje": "❌ No hay taxis para Cliente1 Test",
       "datos": {
-        "cliente": 87739005
+        "cliente": 200000
       }
     },
     {
-      "timestamp": "09:40:01",
+      "timestamp": "10:10:44",
       "tipo": "solicitud",
-      "mensaje": "❌ No hay taxis para Maria Sanchez",
+      "mensaje": "❌ No hay taxis para Cliente2 Test",
       "datos": {
-        "cliente": 79317275
+        "cliente": 200001
       }
     },
     {
-      "timestamp": "09:40:01",
+      "timestamp": "10:10:44",
       "tipo": "solicitud",
-      "mensaje": "❌ No hay taxis para Juan Pablo",
+      "mensaje": "❌ No hay taxis para Cliente1 Test",
       "datos": {
-        "cliente": 87739005
+        "cliente": 200000
       }
     },
     {
-      "timestamp": "09:40:01",
+      "timestamp": "10:10:44",
       "tipo": "solicitud",
-      "mensaje": "❌ No hay taxis para Maria Sanchez",
+      "mensaje": "❌ No hay taxis para Cliente3 Test",
       "datos": {
-        "cliente": 79317275
+        "cliente": 200002
       }
     },
     {
-      "timestamp": "09:40:03",
+      "timestamp": "10:10:44",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente2 Test",
+      "datos": {
+        "cliente": 200001
+      }
+    },
+    {
+      "timestamp": "10:10:44",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente4 Test",
+      "datos": {
+        "cliente": 200003
+      }
+    },
+    {
+      "timestamp": "10:10:44",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente3 Test",
+      "datos": {
+        "cliente": 200002
+      }
+    },
+    {
+      "timestamp": "10:10:44",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente5 Test",
+      "datos": {
+        "cliente": 200004
+      }
+    },
+    {
+      "timestamp": "10:10:44",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente4 Test",
+      "datos": {
+        "cliente": 200003
+      }
+    },
+    {
+      "timestamp": "10:10:44",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente6 Test",
+      "datos": {
+        "cliente": 200005
+      }
+    },
+    {
+      "timestamp": "10:10:44",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente5 Test",
+      "datos": {
+        "cliente": 200004
+      }
+    },
+    {
+      "timestamp": "10:10:45",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente6 Test",
+      "datos": {
+        "cliente": 200005
+      }
+    },
+    {
+      "timestamp": "10:10:45",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente7 Test",
+      "datos": {
+        "cliente": 200006
+      }
+    },
+    {
+      "timestamp": "10:10:45",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente8 Test",
+      "datos": {
+        "cliente": 200007
+      }
+    },
+    {
+      "timestamp": "10:10:45",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente7 Test",
+      "datos": {
+        "cliente": 200006
+      }
+    },
+    {
+      "timestamp": "10:10:45",
+      "tipo": "solicitud",
+      "mensaje": "❌ No hay taxis para Cliente8 Test",
+      "datos": {
+        "cliente": 200007
+      }
+    },
+    {
+      "timestamp": "10:10:45",
       "tipo": "sistema",
       "mensaje": "🌙 Finalizando Día 1...",
       "datos": {
@@ -54,7 +142,7 @@
       }
     },
     {
-      "timestamp": "09:40:03",
+      "timestamp": "10:10:45",
       "tipo": "sistema",
       "mensaje": "🌅 Inicio del Día 2",
       "datos": {
@@ -62,7 +150,7 @@
       }
     },
     {
-      "timestamp": "09:40:06",
+      "timestamp": "10:10:48",
       "tipo": "sistema",
       "mensaje": "🌙 Finalizando Día 2...",
       "datos": {
@@ -70,7 +158,7 @@
       }
     },
     {
-      "timestamp": "09:40:06",
+      "timestamp": "10:10:48",
       "tipo": "sistema",
       "mensaje": "🏁 Simulación finalizada",
       "datos": {}
@@ -79,11 +167,11 @@
   "taxis": [
     {
       "id": 1,
-      "placa": "1234ABC",
-      "nombre": "Carlos Ramirez",
+      "placa": "TX001",
+      "nombre": "Taxi1 Driver",
       "ubicacion": [
-        40.42,
-        -3.71
+        40.425,
+        -3.685
       ],
       "disponible": true,
       "cliente_actual": null,
@@ -94,8 +182,8 @@
     },
     {
       "id": 2,
-      "placa": "7891XYZ",
-      "nombre": "Lucia Fernandez",
+      "placa": "TX002",
+      "nombre": "Taxi2 Driver",
       "ubicacion": [
         40.425,
         -3.685
@@ -109,11 +197,11 @@
     },
     {
       "id": 3,
-      "placa": "2468LMN",
-      "nombre": "Juan Perez",
+      "placa": "TX003",
+      "nombre": "Taxi3 Driver",
       "ubicacion": [
-        40.4178,
-        -3.7094
+        40.42,
+        -3.71
       ],
       "disponible": true,
       "cliente_actual": null,
@@ -124,11 +212,11 @@
     },
     {
       "id": 4,
-      "placa": "9753RTY",
-      "nombre": "Miguel Torres",
+      "placa": "TX004",
+      "nombre": "Taxi4 Driver",
       "ubicacion": [
-        40.4178,
-        -3.7094
+        40.425,
+        -3.685
       ],
       "disponible": true,
       "cliente_actual": null,
@@ -139,11 +227,11 @@
     },
     {
       "id": 5,
-      "placa": "5678XYZ",
-      "nombre": "Maria Lopez",
+      "placa": "TX005",
+      "nombre": "Taxi5 Driver",
       "ubicacion": [
-        40.4234,
-        -3.7109
+        40.41,
+        -3.69
       ],
       "disponible": true,
       "cliente_actual": null,

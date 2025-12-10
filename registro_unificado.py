@@ -240,8 +240,8 @@ def crear_interfaz():
     root.mainloop()
 
 # Inicializar archivos
-inicializar_archivo("data/clientes_registrados.json")
-inicializar_archivo("data/taxis_registrados.json")
+inicializar_archivo("clientes_registrados.json")
+inicializar_archivo("taxis_registrados.json")
 
 # Lanzar interfaz
 crear_interfaz()

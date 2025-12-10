@@ -158,6 +158,16 @@ def iniciar_modo_terminal(num_dias: int):
             sistema.afiliar_cliente(
                 200000 + i, f"Cliente{i+1}", "Test", "4532123456789012"
             )
+            # Asignar ubicaciones de ejemplo para que los clientes estén en Madrid
+            try:
+                import random
+                punto = random.choice(config.PUNTOS_INICIO_TAXIS)
+                destino = random.choice(config.RUTA_PRINCIPAL)
+                cliente = sistema.clientes[-1]
+                cliente.ubicacion_actual = (punto[0], punto[1])
+                cliente.destino = (destino[0], destino[1])
+            except Exception:
+                pass
     
     print(f"\n✅ Sistema listo:")
     print(f"   🚖 Taxis: {len(sistema.taxis)}")
@@ -177,7 +187,8 @@ def iniciar_modo_terminal(num_dias: int):
     hilos_clientes = []
     for cliente in sistema.clientes[:10]:
         import random
-        num_solicitudes = random.randint(1, 2)
+        # Aumentar el número de solicitudes por cliente para generar más actividad
+        num_solicitudes = random.randint(1, 3)
         hilo = threading.Thread(target=hilo_cliente, args=(sistema, cliente, num_solicitudes))
         hilos_clientes.append(hilo)
         hilo.start()
