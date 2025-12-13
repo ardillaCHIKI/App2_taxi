@@ -1,190 +1,190 @@
 {
-  "timestamp": "2025-12-10 17:16:45",
+  "timestamp": "2025-12-13 15:25:54",
   "dia_actual": 3,
   "servicios_activos": 0,
   "total_servicios": 16,
-  "ganancia_empresa": 67.6,
+  "ganancia_empresa": 60.2,
   "eventos": [
     {
-      "timestamp": "17:16:41",
+      "timestamp": "15:25:50",
       "tipo": "completado",
-      "mensaje": "✅ Servicio #11 completado: $6.08 - 3⭐",
+      "mensaje": "✅ Servicio #11 completado: $6.22 - 4⭐",
       "datos": {
         "servicio": 11
       }
     },
     {
-      "timestamp": "17:16:41",
+      "timestamp": "15:25:50",
       "tipo": "asignacion",
-      "mensaje": "🚖 Cliente6 Test ← Taxi TX001",
+      "mensaje": "🚖 Cliente6 Test ← Taxi TX004",
       "datos": {
         "cliente": 200005,
-        "taxi": 1,
-        "origen": [
-          40.4178,
-          -3.7094
-        ],
-        "destino": [
-          40.4168,
-          -3.7034
-        ]
-      }
-    },
-    {
-      "timestamp": "17:16:41",
-      "tipo": "solicitud",
-      "mensaje": "🚗 Servicio iniciado: Cliente6 Test en TX001",
-      "datos": {
-        "cliente": 200005,
-        "taxi": 1
-      }
-    },
-    {
-      "timestamp": "17:16:41",
-      "tipo": "completado",
-      "mensaje": "✅ Servicio #12 completado: $6.08 - 4⭐",
-      "datos": {
-        "servicio": 12
-      }
-    },
-    {
-      "timestamp": "17:16:41",
-      "tipo": "asignacion",
-      "mensaje": "🚖 Cliente7 Test ← Taxi TX001",
-      "datos": {
-        "cliente": 200006,
-        "taxi": 1,
-        "origen": [
-          40.4306,
-          -3.7162
-        ],
-        "destino": [
-          40.4113,
-          -3.6763
-        ]
-      }
-    },
-    {
-      "timestamp": "17:16:41",
-      "tipo": "solicitud",
-      "mensaje": "🚗 Servicio iniciado: Cliente7 Test en TX001",
-      "datos": {
-        "cliente": 200006,
-        "taxi": 1
-      }
-    },
-    {
-      "timestamp": "17:16:41",
-      "tipo": "completado",
-      "mensaje": "✅ Servicio #13 completado: $44.32 - 3⭐",
-      "datos": {
-        "servicio": 13
-      }
-    },
-    {
-      "timestamp": "17:16:41",
-      "tipo": "asignacion",
-      "mensaje": "🚖 Cliente8 Test ← Taxi TX004",
-      "datos": {
-        "cliente": 200007,
         "taxi": 4,
         "origen": [
           40.425,
           -3.685
         ],
         "destino": [
+          40.42,
+          -3.6887
+        ]
+      }
+    },
+    {
+      "timestamp": "15:25:50",
+      "tipo": "solicitud",
+      "mensaje": "🚗 Servicio iniciado: Cliente6 Test en TX004",
+      "datos": {
+        "cliente": 200005,
+        "taxi": 4
+      }
+    },
+    {
+      "timestamp": "15:25:50",
+      "tipo": "completado",
+      "mensaje": "✅ Servicio #12 completado: $6.22 - 3⭐",
+      "datos": {
+        "servicio": 12
+      }
+    },
+    {
+      "timestamp": "15:25:50",
+      "tipo": "asignacion",
+      "mensaje": "🚖 Cliente7 Test ← Taxi TX003",
+      "datos": {
+        "cliente": 200006,
+        "taxi": 3,
+        "origen": [
+          40.4234,
+          -3.7109
+        ],
+        "destino": [
           40.4168,
           -3.7034
         ]
       }
     },
     {
-      "timestamp": "17:16:41",
-      "tipo": "asignacion",
-      "mensaje": "🚖 Cliente7 Test ← Taxi TX005",
+      "timestamp": "15:25:50",
+      "tipo": "solicitud",
+      "mensaje": "🚗 Servicio iniciado: Cliente7 Test en TX003",
       "datos": {
         "cliente": 200006,
-        "taxi": 5,
+        "taxi": 3
+      }
+    },
+    {
+      "timestamp": "15:25:50",
+      "tipo": "completado",
+      "mensaje": "✅ Servicio #13 completado: $9.99 - 4⭐",
+      "datos": {
+        "servicio": 13
+      }
+    },
+    {
+      "timestamp": "15:25:51",
+      "tipo": "asignacion",
+      "mensaje": "🚖 Cliente7 Test ← Taxi TX003",
+      "datos": {
+        "cliente": 200006,
+        "taxi": 3,
         "origen": [
-          40.4306,
-          -3.7162
+          40.4234,
+          -3.7109
         ],
         "destino": [
-          40.4113,
-          -3.6763
+          40.4168,
+          -3.7034
         ]
       }
     },
     {
-      "timestamp": "17:16:41",
+      "timestamp": "15:25:51",
       "tipo": "solicitud",
-      "mensaje": "🚗 Servicio iniciado: Cliente8 Test en TX004",
-      "datos": {
-        "cliente": 200007,
-        "taxi": 4
-      }
-    },
-    {
-      "timestamp": "17:16:41",
-      "tipo": "solicitud",
-      "mensaje": "🚗 Servicio iniciado: Cliente7 Test en TX005",
+      "mensaje": "🚗 Servicio iniciado: Cliente7 Test en TX003",
       "datos": {
         "cliente": 200006,
-        "taxi": 5
+        "taxi": 3
       }
     },
     {
-      "timestamp": "17:16:41",
+      "timestamp": "15:25:51",
       "tipo": "completado",
-      "mensaje": "✅ Servicio #14 completado: $20.14 - 5⭐",
+      "mensaje": "✅ Servicio #14 completado: $9.99 - 4⭐",
       "datos": {
         "servicio": 14
       }
     },
     {
-      "timestamp": "17:16:41",
+      "timestamp": "15:25:51",
+      "tipo": "asignacion",
+      "mensaje": "🚖 Cliente8 Test ← Taxi TX003",
+      "datos": {
+        "cliente": 200007,
+        "taxi": 3,
+        "origen": [
+          40.4306,
+          -3.7162
+        ],
+        "destino": [
+          40.4193,
+          -3.6931
+        ]
+      }
+    },
+    {
+      "timestamp": "15:25:51",
+      "tipo": "solicitud",
+      "mensaje": "🚗 Servicio iniciado: Cliente8 Test en TX003",
+      "datos": {
+        "cliente": 200007,
+        "taxi": 3
+      }
+    },
+    {
+      "timestamp": "15:25:51",
       "tipo": "completado",
-      "mensaje": "✅ Servicio #15 completado: $44.32 - 4⭐",
+      "mensaje": "✅ Servicio #15 completado: $25.72 - 3⭐",
       "datos": {
         "servicio": 15
       }
     },
     {
-      "timestamp": "17:16:41",
+      "timestamp": "15:25:51",
       "tipo": "asignacion",
-      "mensaje": "🚖 Cliente8 Test ← Taxi TX005",
+      "mensaje": "🚖 Cliente8 Test ← Taxi TX003",
       "datos": {
         "cliente": 200007,
-        "taxi": 5,
+        "taxi": 3,
         "origen": [
-          40.425,
-          -3.685
+          40.4306,
+          -3.7162
         ],
         "destino": [
-          40.4168,
-          -3.7034
+          40.4193,
+          -3.6931
         ]
       }
     },
     {
-      "timestamp": "17:16:41",
+      "timestamp": "15:25:51",
       "tipo": "solicitud",
-      "mensaje": "🚗 Servicio iniciado: Cliente8 Test en TX005",
+      "mensaje": "🚗 Servicio iniciado: Cliente8 Test en TX003",
       "datos": {
         "cliente": 200007,
-        "taxi": 5
+        "taxi": 3
       }
     },
     {
-      "timestamp": "17:16:41",
+      "timestamp": "15:25:51",
       "tipo": "completado",
-      "mensaje": "✅ Servicio #16 completado: $20.14 - 5⭐",
+      "mensaje": "✅ Servicio #16 completado: $25.72 - 5⭐",
       "datos": {
         "servicio": 16
       }
     },
     {
-      "timestamp": "17:16:42",
+      "timestamp": "15:25:51",
       "tipo": "sistema",
       "mensaje": "🌙 Finalizando Día 1...",
       "datos": {
@@ -192,7 +192,7 @@
       }
     },
     {
-      "timestamp": "17:16:42",
+      "timestamp": "15:25:51",
       "tipo": "sistema",
       "mensaje": "🌅 Inicio del Día 2",
       "datos": {
@@ -200,7 +200,7 @@
       }
     },
     {
-      "timestamp": "17:16:45",
+      "timestamp": "15:25:54",
       "tipo": "sistema",
       "mensaje": "🌙 Finalizando Día 2...",
       "datos": {
@@ -208,7 +208,7 @@
       }
     },
     {
-      "timestamp": "17:16:45",
+      "timestamp": "15:25:54",
       "tipo": "sistema",
       "mensaje": "🏁 Simulación finalizada",
       "datos": {}
@@ -220,14 +220,14 @@
       "placa": "TX001",
       "nombre": "Taxi1 Driver",
       "ubicacion": [
-        40.4113,
-        -3.6763
+        40.4044,
+        -3.6807
       ],
       "disponible": true,
       "cliente_actual": null,
-      "calificacion": 5.0,
-      "servicios": 3,
-      "ganancia": 56.49,
+      "calificacion": 5.25,
+      "servicios": 4,
+      "ganancia": 85.02,
       "color": "orange"
     },
     {
@@ -235,14 +235,14 @@
       "placa": "TX002",
       "nombre": "Taxi2 Driver",
       "ubicacion": [
-        40.4044,
-        -3.6807
+        40.4153,
+        -3.684
       ],
       "disponible": true,
       "cliente_actual": null,
-      "calificacion": 6.0,
-      "servicios": 2,
-      "ganancia": 54.06,
+      "calificacion": 5.0,
+      "servicios": 0,
+      "ganancia": 0.0,
       "color": "purple"
     },
     {
@@ -250,14 +250,14 @@
       "placa": "TX003",
       "nombre": "Taxi3 Driver",
       "ubicacion": [
-        40.4044,
-        -3.6807
+        40.4193,
+        -3.6931
       ],
       "disponible": true,
       "cliente_actual": null,
-      "calificacion": 6.0,
-      "servicios": 3,
-      "ganancia": 76.86,
+      "calificacion": 4.86,
+      "servicios": 7,
+      "ganancia": 130.4,
       "color": "red"
     },
     {
@@ -265,14 +265,14 @@
       "placa": "TX004",
       "nombre": "Taxi4 Driver",
       "ubicacion": [
-        40.4168,
-        -3.7034
+        40.42,
+        -3.6887
       ],
       "disponible": true,
       "cliente_actual": null,
-      "calificacion": 5.25,
-      "servicios": 4,
-      "ganancia": 64.42,
+      "calificacion": 5.0,
+      "servicios": 3,
+      "ganancia": 34.9,
       "color": "darkgreen"
     },
     {
@@ -280,14 +280,14 @@
       "placa": "TX005",
       "nombre": "Taxi5 Driver",
       "ubicacion": [
-        40.4168,
-        -3.7034
+        40.4044,
+        -3.6807
       ],
       "disponible": true,
       "cliente_actual": null,
-      "calificacion": 6.0,
-      "servicios": 4,
-      "ganancia": 86.18,
+      "calificacion": 7.0,
+      "servicios": 2,
+      "ganancia": 50.69,
       "color": "gray"
     }
   ],

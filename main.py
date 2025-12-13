@@ -173,31 +173,17 @@ def iniciar_modo_terminal(num_dias: int):
     print(f"   🚖 Taxis: {len(sistema.taxis)}")
     print(f"   🧍 Clientes: {len(sistema.clientes)}")
     
+    
     # Confirmar inicio
     input("\n🎬 Presiona ENTER para iniciar...")
     
     print("\n🚀 INICIANDO SIMULACIÓN...\n")
     
-    # Iniciar hilos
+    # Iniciar hilo del sistema (ahora crea hilos de clientes automáticamente cada día)
     hilo_sistema = threading.Thread(target=hilo_sistema_principal, args=(sistema,))
     hilo_sistema.start()
     
-    # Crear hilos de clientes
-    time.sleep(0.5)
-    hilos_clientes = []
-    for cliente in sistema.clientes[:10]:
-        import random
-        # Aumentar el número de solicitudes por cliente para generar más actividad
-        num_solicitudes = random.randint(1, 3)
-        hilo = threading.Thread(target=hilo_cliente, args=(sistema, cliente, num_solicitudes))
-        hilos_clientes.append(hilo)
-        hilo.start()
-        time.sleep(0.1)
-    
-    # Esperar finalización
-    for hilo in hilos_clientes:
-        hilo.join()
-    
+    # Esperar finalización del hilo del sistema
     hilo_sistema.join()
     
     # Resumen final

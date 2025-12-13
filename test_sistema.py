@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import config
 from models import Cliente, Taxi, Servicio
 from sistema_central import SistemaCentral
-from main import hilo_cliente
+from hilos import hilo_cliente
 
 
 # ==================== PRUEBAS DE SINCRONIZACIÓN ====================

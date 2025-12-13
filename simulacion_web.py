@@ -708,36 +708,54 @@ def iniciar_simulacion_web(num_dias: int = 2):
     
     # Iniciar hilo del sistema
     def sistema_thread():
+        """Hilo principal que ejecuta la simulación día por día"""
         for dia in range(sistema.num_dias):
             sistema.iniciar_nuevo_dia()
-            time.sleep(3)  # 3 segundos por día
+            
+            # ✅ CREAR HILOS DE CLIENTES PARA ESTE DÍA
+            print(f"👥 Activando clientes para el día {dia + 1}...")
+            hilos_clientes = []
+            
+            for cliente in sistema.clientes[:10]:
+                # Asignar ubicaciones aleatorias cada día
+                try:
+                    punto = random.choice(config.PUNTOS_INICIO_TAXIS)
+                    destino = random.choice(config.RUTA_PRINCIPAL)
+                    cliente.ubicacion_actual = (punto[0], punto[1])
+                    cliente.destino = (destino[0], destino[1])
+                except Exception as e:
+                    print(f"⚠️ Error asignando ubicación a cliente: {e}")
+                
+                # Crear hilo para este cliente (1-3 solicitudes por día)
+                num_solicitudes = random.randint(1, 3)
+                hilo = threading.Thread(
+                    target=hilo_cliente,
+                    args=(sistema, cliente, num_solicitudes)
+                )
+                hilos_clientes.append(hilo)
+                hilo.start()
+                time.sleep(0.1)  # Pequeña pausa entre creaciones
+            
+            # Esperar a que los clientes procesen sus solicitudes
+            duracion = config.SIMULACION.get('TIEMPO_SIMULACION_DIA', 6.0)
+            print(f"⏳ Simulando actividad del día {dia + 1} ({duracion} segundos)...")
+            time.sleep(duracion)
+            
+            # Esperar a que terminen todos los hilos (máximo 2 segundos adicionales)
+            print(f"⏸️ Esperando finalización de hilos del día {dia + 1}...")
+            for hilo in hilos_clientes:
+                hilo.join(timeout=2.0)
+            
+            # Finalizar el día
             sistema.finalizar_dia()
         
+        # Marcar fin del sistema
         sistema.fin_sistema = True
         web_gen.agregar_evento("sistema", "🏁 Simulación finalizada", {})
         print("\n✅ Simulación completada")
     
     hilo_sistema = threading.Thread(target=sistema_thread, daemon=True)
     hilo_sistema.start()
-    
-    # Iniciar hilos de clientes
-    def iniciar_clientes():
-        time.sleep(1)  # Esperar a que empiece el día
-        hilos = []
-        for cliente in sistema.clientes[:10]:
-            hilo = threading.Thread(
-                target=hilo_cliente,
-                args=(sistema, cliente, 2),
-                daemon=True
-            )
-            hilos.append(hilo)
-            hilo.start()
-            time.sleep(0.2)
-        
-        for hilo in hilos:
-            hilo.join()
-    
-    threading.Thread(target=iniciar_clientes, daemon=True).start()
     
     # Abrir navegador
     print(f"\n🌐 Abriendo navegador en: {archivo_html}")

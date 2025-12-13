@@ -10,7 +10,7 @@ Este módulo evita importaciones circulares al centralizar los hilos.
 
 import time
 import random
-
+import threading
 import config
 from sistema_central import SistemaCentral
 
@@ -55,17 +55,48 @@ def hilo_sistema_principal(sistema: SistemaCentral):
     """
     Hilo principal que recorre los días de simulación del sistema.
 
-    Ejecuta: iniciar_nuevo_dia(), espera breve, finalizar_dia().
+    Ejecuta: iniciar_nuevo_dia(), crea hilos de clientes, espera, finalizar_dia().
     """
+    import random
+    
     for dia in range(sistema.num_dias):
         sistema.iniciar_nuevo_dia()
-        # Esperar la duración configurada de simulación por día para permitir que
-        # los hilos de clientes procesen solicitudes antes de finalizar el día.
-        duracion = getattr(config, 'SIMULACION', {}).get('TIEMPO_SIMULACION_DIA', 2.0)
+        
+        # ✅ CREAR HILOS DE CLIENTES PARA ESTE DÍA
+        hilos_clientes = []
+        clientes_activos = sistema.clientes[:min(10, len(sistema.clientes))]
+        
+        for cliente in clientes_activos:
+            # Asignar ubicaciones aleatorias cada día
+            try:
+                punto = random.choice(config.PUNTOS_INICIO_TAXIS)
+                destino = random.choice(config.RUTA_PRINCIPAL)
+                cliente.ubicacion_actual = (punto[0], punto[1])
+                cliente.destino = (destino[0], destino[1])
+            except Exception:
+                pass
+            
+            # Crear hilo para este cliente (1-3 solicitudes por día)
+            num_solicitudes = random.randint(1, 3)
+            hilo = threading.Thread(
+                target=hilo_cliente,
+                args=(sistema, cliente, num_solicitudes)
+            )
+            hilos_clientes.append(hilo)
+            hilo.start()
+            time.sleep(0.1)
+        
+        # Esperar la duración configurada de simulación por día
+        duracion = getattr(config, 'SIMULACION', {}).get('TIEMPO_SIMULACION_DIA', 6.0)
         try:
             time.sleep(duracion)
         except Exception:
-            time.sleep(0.5)
+            time.sleep(2.0)
+        
+        # Esperar a que terminen todos los hilos de este día
+        for hilo in hilos_clientes:
+            hilo.join(timeout=2.0)
+        
         sistema.finalizar_dia()
 
     sistema.fin_sistema = True

@@ -116,7 +116,7 @@ class Taxi:
     velocidad: int  # km/h
     ubicacion: Tuple[float, float] = (0.0, 0.0)
     disponible: bool = True
-    calificacion_total: float = config.CALIFICACIONES["INICIAL"]
+    calificacion_total: float = 0.0
     cantidad_servicios: int = 0
     ganancia_diaria: float = 0.0
     ganancia_total: float = 0.0
