@@ -537,6 +537,9 @@ class TestIntegracion(unittest.TestCase):
         sistema.afiliar_cliente(2200000, "Cliente", "Completo", "4532123456789012")
         
         cliente = sistema.clientes[-1]
+        # CORREGIDO: Asignar ubicación en Madrid
+        cliente.ubicacion_actual = (40.4168, -3.7034)  # Puerta del Sol
+        cliente.destino = (40.4200, -3.6887)            # Puerta de Alcalá
         
         # Realizar servicio
         hilo = threading.Thread(target=hilo_cliente, args=(sistema, cliente, 1))
