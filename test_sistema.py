@@ -109,6 +109,10 @@ class TestSincronizacion(unittest.TestCase):
         
         clientes = self.sistema.clientes.copy()
         
+        # ASIGNAR UBICACIONES A LOS CLIENTES (cerca de los taxis)
+        for cliente in clientes:
+            cliente.ubicacion_actual = (40.4168, -3.7034)  # Puerta del Sol
+            cliente.destino = (40.4200, -3.6887)  # Puerta de Alcalá
         # Todas las solicitudes simultáneas
         hilos = []
         for cliente in clientes:
